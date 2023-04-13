@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace StarterAssets
 {
@@ -14,7 +15,7 @@ namespace StarterAssets
 
 		[Space(10)]
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-		public float Gravity = -15.0f;
+		public float GravityValue = -15.0f;
 
 		[Space(10)]
 		[Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
@@ -72,7 +73,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
+			Gravity();
 			GroundedCheck();
 			Move();
 		}
@@ -99,11 +100,13 @@ namespace StarterAssets
 				_targetPitch += _mouseInput.y * RotationSpeed;
 				_rotationVelocity = _mouseInput.x * RotationSpeed;
 
-				// clamp our pitch rotation
-				_targetPitch = ClampAngle(_targetPitch, BottomClamp, TopClamp);
+				// clamp pitch rotation
+                if (_targetPitch < -360f) _targetPitch += 360f;
+                if (_targetPitch > 360f) _targetPitch -= 360f;
+                _targetPitch = Mathf.Clamp(_targetPitch, BottomClamp, TopClamp);
 
-				// Update camera target pitch
-				_mainCamera.transform.localRotation = Quaternion.Euler(_targetPitch, 0.0f, 0.0f);
+                // Update camera target pitch
+                _mainCamera.transform.localRotation = Quaternion.Euler(_targetPitch, 0.0f, 0.0f);
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
@@ -131,7 +134,7 @@ namespace StarterAssets
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
-		private void JumpAndGravity()
+		private void Gravity()
 		{
 			if (Grounded)
 			{
@@ -151,14 +154,7 @@ namespace StarterAssets
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity)
-				_verticalVelocity += Gravity * Time.deltaTime;
-		}
-
-		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-		{
-			if (lfAngle < -360f) lfAngle += 360f;
-			if (lfAngle > 360f) lfAngle -= 360f;
-			return Mathf.Clamp(lfAngle, lfMin, lfMax);
+				_verticalVelocity += GravityValue * Time.deltaTime;
 		}
 
 		private void OnDrawGizmosSelected()
