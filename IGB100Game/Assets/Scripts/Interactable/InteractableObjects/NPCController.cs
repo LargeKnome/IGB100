@@ -11,6 +11,8 @@ public class NPCController : MonoBehaviour, Interactable
 
     Camera cam;
 
+    float camMoveSpeed = 4f;
+
     private void Start()
     {
         cam = GameController.i.MainCamera;
@@ -34,9 +36,12 @@ public class NPCController : MonoBehaviour, Interactable
 
     IEnumerator MoveCamera(Vector3 newCamPos, Quaternion newCamRot)
     {
-        for(var t = 0f; t < 0.5f; t += Time.deltaTime)
+        var prevPos = cam.transform.position;
+        var prevRot = cam.transform.rotation;
+
+        for(var t = 0f; t < 1f; t += Time.deltaTime * camMoveSpeed)
         {
-            cam.transform.SetPositionAndRotation(Vector3.Lerp(cam.transform.position, newCamPos, t), Quaternion.Lerp(cam.transform.rotation, newCamRot, t));
+            cam.transform.SetPositionAndRotation(Vector3.Lerp(prevPos, newCamPos, t), Quaternion.Lerp(prevRot, newCamRot, t));
             yield return null;
         }
     }
