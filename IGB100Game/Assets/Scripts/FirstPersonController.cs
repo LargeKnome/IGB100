@@ -12,14 +12,12 @@ namespace StarterAssets
 		public float MoveSpeed = 4.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
+        [Tooltip("The distance in m the character can interact from")]
+        [SerializeField] float interactionDistance;
 
 		[Space(10)]
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float GravityValue = -15.0f;
-
-		[Space(10)]
-		[Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
-		public float FallTimeout = 0.15f;
 
 		[Header("Player Grounded")]
 		[Tooltip("If the character is grounded or not.")]
@@ -29,10 +27,6 @@ namespace StarterAssets
 		[Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
 		public float GroundedRadius = 0.5f;
 
-		[Header("Layers")]
-		[SerializeField] LayerMask groundLayer;
-		[SerializeField] LayerMask interactLayer;
-
         [Header("Camera")]
 		[Tooltip("How far in degrees can you move the camera up")]
 		public float TopClamp = 90.0f;
@@ -40,31 +34,26 @@ namespace StarterAssets
 		public float BottomClamp = -90.0f;
 
 		// camera
-		private float _targetPitch;
+		private float targetPitch;
 
 		// player
-		private float _speed;
-		private float _rotationVelocity;
-		private float _verticalVelocity;
+		private float speed;
+		private float rotationVelocity;
+		private float verticalVelocity;
 
-		private CharacterController _controller;
-		private GameObject _mainCamera;
-
-		private const float _threshold = 0.01f;
+		private CharacterController controller;
+		private GameObject mainCamera;
 
 		private void Awake()
 		{
-			// get a reference to our main camera
-			if (_mainCamera == null)
-				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
 		}
 
 		private void Start()
 		{
-			_controller = GetComponent<CharacterController>();
+			mainCamera = GameController.i.MainCamera.gameObject;
+			controller = GetComponent<CharacterController>();
 		}
 
 		public void HandleUpdate()
@@ -82,17 +71,22 @@ namespace StarterAssets
 		void HandleInteractInput()
 		{
 			//Shoot ray out from camera, if hits interactable object then interacts
-            Ray ray = new(_mainCamera.transform.position, _mainCamera.transform.forward);
+            Ray ray = new(mainCamera.transform.position, mainCamera.transform.forward);
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f, interactLayer))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, interactionDistance, LayerManager.i.InteractLayer))
                 StartCoroutine(hitInfo.collider.GetComponent<Interactable>().Interact());
+        }
+
+		public bool Interactable()
+		{
+			return Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, interactionDistance, LayerManager.i.InteractLayer);
         }
 
 		private void GroundedCheck()
 		{
 			// set sphere position, with offset
 			Vector3 spherePosition = new(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
-			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayer, QueryTriggerInteraction.Ignore);
+			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, LayerManager.i.GroundLayer, QueryTriggerInteraction.Ignore);
 		}
 
 		private void CameraRotation()
@@ -100,21 +94,21 @@ namespace StarterAssets
             Vector2 _mouseInput = new(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
             
 			// if there is an input
-            if (_mouseInput.sqrMagnitude >= _threshold)
+            if (_mouseInput.sqrMagnitude >= Mathf.Epsilon)
 			{
-				_targetPitch += _mouseInput.y * RotationSpeed;
-				_rotationVelocity = _mouseInput.x * RotationSpeed;
+				targetPitch += _mouseInput.y * RotationSpeed;
+				rotationVelocity = _mouseInput.x * RotationSpeed;
 
 				// clamp pitch rotation
-                if (_targetPitch < -360f) _targetPitch += 360f;
-                if (_targetPitch > 360f) _targetPitch -= 360f;
-                _targetPitch = Mathf.Clamp(_targetPitch, BottomClamp, TopClamp);
+                if (targetPitch < -360f) targetPitch += 360f;
+                if (targetPitch > 360f) targetPitch -= 360f;
+                targetPitch = Mathf.Clamp(targetPitch, BottomClamp, TopClamp);
 
                 // Update camera target pitch
-                _mainCamera.transform.localRotation = Quaternion.Euler(_targetPitch, 0.0f, 0.0f);
+                mainCamera.transform.localRotation = Quaternion.Euler(targetPitch, 0.0f, 0.0f);
 
 				// rotate the player left and right
-				transform.Rotate(Vector3.up * _rotationVelocity);
+				transform.Rotate(Vector3.up * rotationVelocity);
 			}
 		}
 
@@ -123,7 +117,7 @@ namespace StarterAssets
 			Vector2 _input = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
             // if there is no input, set the target speed to 0
-            _speed = (_input != Vector2.zero) ? MoveSpeed : 0.0f;
+            speed = (_input != Vector2.zero) ? MoveSpeed : 0.0f;
 
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.x, 0.0f, _input.y).normalized;
@@ -136,7 +130,7 @@ namespace StarterAssets
 			}
 
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
 		private void Gravity()
@@ -144,12 +138,12 @@ namespace StarterAssets
 			if (Grounded)
 			{
 				// stop our velocity dropping infinitely when grounded
-				if (_verticalVelocity < 0.0f)
-					_verticalVelocity = -2f;
+				if (verticalVelocity < 0.0f)
+					verticalVelocity = -2f;
 			}
 			else
                 // apply gravity over time (multiply by delta time twice to linearly speed up over time)
-                _verticalVelocity += GravityValue * Time.deltaTime;
+                verticalVelocity += GravityValue * Time.deltaTime;
 		}
 
 		private void OnDrawGizmosSelected()

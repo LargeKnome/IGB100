@@ -7,10 +7,9 @@ public class FacePlayer : MonoBehaviour
 {
     GameObject player;
 
-    private void Awake()
+    private void Start()
     {
-        if (player == null)
-            player = FindObjectOfType<FirstPersonController>().gameObject;
+        player = GameController.i.Player.gameObject;
     }
 
     void Update()
