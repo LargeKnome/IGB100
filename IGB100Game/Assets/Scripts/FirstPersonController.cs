@@ -28,9 +28,12 @@ namespace StarterAssets
 		public float GroundedOffset = -0.14f;
 		[Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
 		public float GroundedRadius = 0.5f;
-		[SerializeField] LayerMask groundLayer;
 
-		[Header("Camera")]
+		[Header("Layers")]
+		[SerializeField] LayerMask groundLayer;
+		[SerializeField] LayerMask interactLayer;
+
+        [Header("Camera")]
 		[Tooltip("How far in degrees can you move the camera up")]
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
@@ -43,10 +46,6 @@ namespace StarterAssets
 		private float _speed;
 		private float _rotationVelocity;
 		private float _verticalVelocity;
-		private float _terminalVelocity = 53.0f;
-
-		// timeout deltatime
-		private float _fallTimeoutDelta;
 
 		private CharacterController _controller;
 		private GameObject _mainCamera;
@@ -66,22 +65,28 @@ namespace StarterAssets
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
-
-			// reset our timeouts on start
-			_fallTimeoutDelta = FallTimeout;
 		}
 
-		private void Update()
+		public void HandleUpdate()
 		{
 			Gravity();
 			GroundedCheck();
 			Move();
-		}
 
-		private void LateUpdate()
+			if(Input.GetButtonDown("Interact"))
+				HandleInteractInput();
+
+            CameraRotation();
+        }
+
+		void HandleInteractInput()
 		{
-			CameraRotation();
-		}
+			//Shoot ray out from camera, if hits interactable object then interacts
+            Ray ray = new(_mainCamera.transform.position, _mainCamera.transform.forward);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f, interactLayer))
+                StartCoroutine(hitInfo.collider.GetComponent<Interactable>().Interact());
+        }
 
 		private void GroundedCheck()
 		{
@@ -138,23 +143,13 @@ namespace StarterAssets
 		{
 			if (Grounded)
 			{
-				// reset the fall timeout timer
-				_fallTimeoutDelta = FallTimeout;
-
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
 					_verticalVelocity = -2f;
 			}
 			else
-			{
-				// fall timeout
-				if (_fallTimeoutDelta >= 0.0f)
-					_fallTimeoutDelta -= Time.deltaTime;
-			}
-
-			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-			if (_verticalVelocity < _terminalVelocity)
-				_verticalVelocity += GravityValue * Time.deltaTime;
+                // apply gravity over time (multiply by delta time twice to linearly speed up over time)
+                _verticalVelocity += GravityValue * Time.deltaTime;
 		}
 
 		private void OnDrawGizmosSelected()
