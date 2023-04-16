@@ -32,6 +32,17 @@ public class DialogManager : MonoBehaviour
         GameController.i.StateMachine.Pop();
     }
 
+    public IEnumerator ShowText(string text)
+    {
+        typingDialog = true;
+
+        GameController.i.StateMachine.Push(DialogState.i);
+
+        yield return TypeLine(text);
+
+        GameController.i.StateMachine.Pop();
+    }
+
     IEnumerator TypeLine(string line)
     {
         typingDialog = true;

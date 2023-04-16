@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour, Interactable
 {
+    [Header("Default Dialog")]
     [SerializeField] Dialog dialog;
+
+    [Header("Evidence-Based Dialog")]
+    [SerializeField] List<EvidenceDialog> evidenceDialogs;
+    [SerializeField] Dialog defaultResponse;
 
     [SerializeField] Transform cameraPlace;
 
@@ -44,5 +49,19 @@ public class NPCController : MonoBehaviour, Interactable
             cam.transform.SetPositionAndRotation(Vector3.Lerp(prevPos, newCamPos, t), Quaternion.Lerp(prevRot, newCamRot, t));
             yield return null;
         }
+    }
+}
+
+[System.Serializable]
+public class EvidenceDialog
+{
+    [SerializeField] Evidence requiredEvidence;
+    [SerializeField] Dialog resultingDialog;
+
+    public Evidence RequiredEvidence => requiredEvidence;
+
+    public IEnumerator Respond()
+    {
+        yield return DialogManager.i.ShowDialog(resultingDialog);
     }
 }
