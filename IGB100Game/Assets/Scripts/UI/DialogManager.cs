@@ -25,9 +25,7 @@ public class DialogManager : MonoBehaviour
         GameController.i.StateMachine.Push(DialogState.i);
 
         foreach(var line in dialog.Lines)
-        {
             yield return TypeLine(line);
-        }
 
         GameController.i.StateMachine.Pop();
     }

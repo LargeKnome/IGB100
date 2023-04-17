@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] FirstPersonController player;
 
+    [SerializeField] Material detectivisionMat;
+
     public Camera MainCamera => mainCamera;
     public FirstPersonController Player => player;
 
@@ -18,6 +20,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         i = this;
+        Evidence.detectivisionMat = detectivisionMat;
     }
 
     void Start()

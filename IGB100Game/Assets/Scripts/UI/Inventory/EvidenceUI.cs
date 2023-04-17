@@ -14,7 +14,7 @@ public class EvidenceUI : MonoBehaviour
     {
         Evidence = evidence;
         evidenceObj.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
-        evidenceObj.GetComponent<MeshRenderer>().material = evidence.GetComponent<MeshRenderer>().material;
+        evidenceObj.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
     }
 
 

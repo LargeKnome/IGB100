@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -31,12 +33,16 @@ namespace StarterAssets
 		float rotationVelocity;
 		float verticalVelocity;
 
+		bool visionActivated = false;
+
 		CharacterController controller;
 		GameObject mainCamera;
 
 		Inventory inventory;
 
 		public Inventory Inventory => inventory;
+
+		public event Action<bool> OnVisionActivate;
 
 		private void Awake()
 		{
@@ -63,6 +69,12 @@ namespace StarterAssets
 			if (Input.GetKeyDown(KeyCode.Tab))
 				GameController.i.StateMachine.Push(InventoryState.i);
 
+			if (Input.GetKeyDown(KeyCode.F))
+			{
+				visionActivated = !visionActivated;
+				OnVisionActivate.Invoke(visionActivated);
+			}
+
             CameraRotation();
         }
 
@@ -71,14 +83,18 @@ namespace StarterAssets
 			//Shoot ray out from camera, if hits interactable object then interacts
             Ray ray = new(mainCamera.transform.position, mainCamera.transform.forward);
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, interactionDistance, LayerManager.i.InteractLayer))
-                StartCoroutine(hitInfo.collider.GetComponent<Interactable>().Interact());
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, interactionDistance))
+				if(1 << hitInfo.collider.gameObject.layer == LayerManager.i.InteractLayer.value)
+					StartCoroutine(hitInfo.collider.GetComponent<Interactable>().Interact());
         }
 
 		public bool Interactable()
 		{
 			//Returns true if looking at interactable object
-			return Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, interactionDistance, LayerManager.i.InteractLayer);
+			if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hitInfo, interactionDistance))
+				return 1 << hitInfo.collider.gameObject.layer == LayerManager.i.InteractLayer.value;
+
+			return false;
         }
 
 		private void GroundedCheck()
