@@ -95,6 +95,16 @@ namespace StarterAssets
 				return 1 << hitInfo.collider.gameObject.layer == LayerManager.i.InteractLayer.value;
 
 			return false;
+
+        }
+        
+        public string GetInteractableName()
+		{
+			//Returns true if looking at interactable object
+			if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hitInfo, interactionDistance))
+				return hitInfo.collider.gameObject.name;
+
+			return "";
         }
 
 		private void GroundedCheck()
