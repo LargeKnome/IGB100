@@ -9,7 +9,8 @@ public class DialogManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI textMesh;
 
     bool typingDialog;
-    string currentLine;
+    Statement currentStatement;
+
     bool endLine;
 
     public static DialogManager i { get; private set; }
@@ -18,33 +19,62 @@ public class DialogManager : MonoBehaviour
         i = this;
     }
 
-    public IEnumerator ShowDialog(Dialog dialog)
+    public IEnumerator ShowDialog(List<Statement> statements)
     {
         typingDialog = true;
 
         GameController.i.StateMachine.Push(DialogState.i);
 
-        foreach(var line in dialog.Lines)
-            yield return TypeLine(line);
+        foreach (var line in statements)
+        {
+            yield return TypeStatement(line);
+
+            if (currentStatement.DisprovingEvidence == null)
+                continue;
+
+            yield return GameController.i.StateMachine.PushAndWait(ChoiceState.i);
+
+            if (!ChoiceState.i.Refute)
+                continue;
+
+            yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
+
+            if (!InventoryState.i.HasSelectedEvidence)
+                continue;
+
+            textMesh.color = Color.black;
+
+            yield return TypeLine(currentStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence));
+
+            break;
+        }
 
         GameController.i.StateMachine.Pop();
     }
 
-    public IEnumerator ShowText(string text)
+    public IEnumerator ShowLine(string line)
     {
-        typingDialog = true;
-
         GameController.i.StateMachine.Push(DialogState.i);
 
-        yield return TypeLine(text);
+        textMesh.color = Color.black;
+
+        yield return TypeLine(line);
 
         GameController.i.StateMachine.Pop();
+    }
+
+    IEnumerator TypeStatement(Statement statement)
+    {
+        currentStatement = statement;
+
+        textMesh.color = (statement.DisprovingEvidence != null) ? Color.yellow : Color.black;
+
+        yield return TypeLine(statement.Dialog);
     }
 
     IEnumerator TypeLine(string line)
     {
         typingDialog = true;
-        currentLine = line;
 
         string shownText = "";
 
@@ -57,7 +87,7 @@ public class DialogManager : MonoBehaviour
             if (endLine)
             {
                 endLine = false;
-                textMesh.text = currentLine;
+                textMesh.text = line;
                 typingDialog = false;
                 break;
             }
@@ -78,22 +108,21 @@ public class DialogManager : MonoBehaviour
 }
 
 [Serializable]
-public class Dialog
+public class Statement
 {
-    [SerializeField] List<string> lines;
+    [SerializeField] string statement;
+    [SerializeField] Evidence disprovingEvidence;
+    [SerializeField] string onCorrectEvidence;
+    [SerializeField] string onWrongEvidence;
 
-    public Dialog(string start)
+    public string Dialog => statement;
+    public Evidence DisprovingEvidence => disprovingEvidence;
+
+    public string StatementOnEvidence(Evidence evidence)
     {
-        lines = new List<string>
-        {
-            start
-        };
+        if(disprovingEvidence == evidence)
+            return onCorrectEvidence;
+        else
+            return onWrongEvidence;
     }
-
-    public void AddDialog(string newLine)
-    {
-        lines.Add(newLine);
-    }
-
-    public List<string> Lines => lines;
 }

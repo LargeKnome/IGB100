@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StateMachine<T>
 {
     public State<T> CurrentState => StateStack.Peek();
+    public State<T> PrevState => (StateStack.Count > 1) ? StateStack.ElementAt(1) : null;
 
     public Stack<State<T>> StateStack { get; private set; }
 

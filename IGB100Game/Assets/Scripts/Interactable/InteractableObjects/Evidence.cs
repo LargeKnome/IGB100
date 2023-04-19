@@ -27,8 +27,8 @@ public class Evidence : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        yield return DialogManager.i.ShowText(itemDescription);
-        yield return DialogManager.i.ShowText("I better take this with me.");
+        yield return DialogManager.i.ShowLine(itemDescription);
+        yield return DialogManager.i.ShowLine("I better take this with me.");
         GameController.i.Player.Inventory.AddEvidence(this);
 
         gameObject.SetActive(false);
