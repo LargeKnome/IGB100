@@ -16,7 +16,7 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     private void Awake()
     {
-        baseRotation = transform.localRotation.eulerAngles;
+        baseRotation = transform.parent.localRotation.eulerAngles;
     }
 
     public IEnumerator Interact()
@@ -36,9 +36,9 @@ public class RotateInteract : MonoBehaviour, Interactable
 
             t += Time.deltaTime;
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(newRot), t/rotationTime);
+            transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, Quaternion.Euler(newRot), t/rotationTime);
 
-            if (transform.rotation == Quaternion.Euler(newRot))
+            if (transform.parent.rotation == Quaternion.Euler(newRot))
                 yield break;
 
             yield return null;
