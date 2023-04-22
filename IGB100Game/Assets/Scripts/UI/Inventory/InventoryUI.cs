@@ -12,6 +12,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI evidenceDescription;
 
     List<EvidenceUI> currentInventory;
+    public List<EvidenceUI> CurrentInventory => currentInventory;
 
     int selectedIndex;
     bool changeSelection = true;
