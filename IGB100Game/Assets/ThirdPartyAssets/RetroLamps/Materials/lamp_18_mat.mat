@@ -134,7 +134,7 @@ Material:
     - _Shininess: 0.5001344
     - _SideTexFocus: 4
     - _SideTexIntensity: 5
-    - _Smoothness: 0.5
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

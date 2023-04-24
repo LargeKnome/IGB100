@@ -47,6 +47,10 @@ public class RotateInteract : MonoBehaviour, Interactable
     public void unlock()
     {
         locks -= 1;
-        Debug.Log(locks + " locks remaining");
+
+        if (locks == 0)
+        {
+            Debug.Log("door unlocked");
+        }
     }
 }

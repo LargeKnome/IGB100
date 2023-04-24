@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa5462122f4af948aa1d687b5300b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refute: {fileID: 1904599070}
+  question: {fileID: 0}
   cancel: {fileID: 93012185}
 --- !u!114 &68568939
 MonoBehaviour:
@@ -1690,7 +1690,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f4bd3e0eaf719f84994d1a17cfd2bd03, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2480,7 +2480,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31513ca1d3cb64d49aec981b158c15ed, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2744,7 +2744,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f62da25ef186dd48b8b313422bce30a, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5336,7 +5336,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f4bd3e0eaf719f84994d1a17cfd2bd03, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6256,7 +6256,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31513ca1d3cb64d49aec981b158c15ed, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6353,7 +6353,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f4bd3e0eaf719f84994d1a17cfd2bd03, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16869,16 +16869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingSentence: 
-  statements:
-  - statement: I'm not the murderer.
-    disprovingEvidence: {fileID: 0}
-    onCorrectEvidence: 
-    onWrongEvidence: 
-  - statement: I can't even enter the murder location, the room is locked with no
-      way to open it.
-    disprovingEvidence: {fileID: 1834760633}
-    onCorrectEvidence: Oh, that's the key to the room!
-    onWrongEvidence: That doesn't prove anything.
+  interrogationQuestions: []
   cameraPlace: {fileID: 617016864}
 --- !u!114 &1981946090
 MonoBehaviour:
@@ -17609,7 +17600,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31513ca1d3cb64d49aec981b158c15ed, type: 2}
+  - {fileID: 2100000, guid: d74cc29ec1d44ba42abe64ad2dad121d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
