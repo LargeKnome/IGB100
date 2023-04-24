@@ -18,11 +18,6 @@ public class DialogState : State<GameController>
         dialogBox.SetActive(true);
     }
 
-    public override void Execute()
-    {
-        DialogManager.i.HandleUpdate();
-    }
-
     public override void Exit()
     {
         dialogBox.SetActive(false);

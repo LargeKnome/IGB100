@@ -15,6 +15,9 @@ public class EvidenceUI : MonoBehaviour
         Evidence = evidence;
         evidenceObj.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
         evidenceObj.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
+
+        float sizeFactor = evidenceObj.transform.localScale.x/Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
+        evidenceObj.transform.localScale = evidence.transform.localScale * sizeFactor;
     }
 
 

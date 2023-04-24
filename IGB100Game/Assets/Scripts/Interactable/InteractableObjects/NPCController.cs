@@ -1,4 +1,3 @@
-using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +5,7 @@ using UnityEngine;
 public class NPCController : MonoBehaviour, Interactable
 {
     [Header("Default Dialog")]
+    [SerializeField] string startingSentence;
     [SerializeField] List<Statement> statements;
 
     [SerializeField] Transform cameraPlace;
@@ -27,6 +27,8 @@ public class NPCController : MonoBehaviour, Interactable
         var prevCamRot = cam.transform.rotation;
 
         yield return MoveCamera(cameraPlace.position, cameraPlace.rotation);
+
+        yield return DialogManager.i.ShowLine(startingSentence);
 
         yield return DialogManager.i.ShowDialog(statements);
 
