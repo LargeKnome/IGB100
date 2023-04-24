@@ -34,7 +34,7 @@ public class InventoryState : State<GameController>
 
         if (inventoryUI.CurrentInventory.Count == 0) return;
 
-        if (gc.StateMachine.PrevState == DialogState.i)
+        if (gc.StateMachine.PrevState == InterrogationState.i)
         {
             if (Input.GetButtonDown("Interact"))
             {

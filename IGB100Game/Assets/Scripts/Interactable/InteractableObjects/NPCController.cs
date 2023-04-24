@@ -8,6 +8,8 @@ public class NPCController : MonoBehaviour, Interactable
     [SerializeField] string startingSentence;
     [SerializeField] List<Question> interrogationQuestions;
 
+    public List<Question> InterrogationQuestions => interrogationQuestions;
+
     [SerializeField] Transform cameraPlace;
 
     Camera cam;

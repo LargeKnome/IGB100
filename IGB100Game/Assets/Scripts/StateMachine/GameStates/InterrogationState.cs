@@ -5,8 +5,10 @@ using UnityEngine;
 public class InterrogationState : State<GameController>
 {
     [SerializeField] InterrogationUI interrogationUI;
+    [SerializeField] QuestionUI questionUI;
 
     NPCController currentInterrogatee;
+    public NPCController CurrentInterrogatee => currentInterrogatee;
 
     public static InterrogationState i;
     private void Awake()
@@ -33,5 +35,10 @@ public class InterrogationState : State<GameController>
     public void SetCharacter(NPCController character)
     {
         currentInterrogatee = character;
+    }
+
+    public void AskQuestion(Question question)
+    {
+        interrogationUI.AskQuestion(question);
     }
 }

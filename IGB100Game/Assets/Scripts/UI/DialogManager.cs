@@ -9,33 +9,10 @@ public class DialogManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMesh;
 
-    Statement currentStatement;
-
     public static DialogManager i { get; private set; }
     private void Awake()
     {
         i = this;
-    }
-
-    public IEnumerator ShowDialog(List<Statement> statements)
-    {
-        GameController.i.StateMachine.Push(DialogState.i);
-
-        foreach (var line in statements)
-        {
-            yield return TypeStatement(line);
-
-            yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
-
-            if (!InventoryState.i.HasSelectedEvidence)
-                continue;
-
-            yield return TypeLine(currentStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence));
-
-            break;
-        }
-
-        GameController.i.StateMachine.Pop();
     }
 
     public IEnumerator ShowLine(string line)
@@ -58,13 +35,6 @@ public class DialogManager : MonoBehaviour
         GameController.i.StateMachine.Pop();
     }
 
-    IEnumerator TypeStatement(Statement statement)
-    {
-        currentStatement = statement;
-
-        yield return TypeLine(statement.Dialog);
-    }
-
     IEnumerator TypeLine(string line)
     {
         textMesh.text = line;
@@ -77,8 +47,11 @@ public class DialogManager : MonoBehaviour
 [Serializable]
 public class Question
 {
-    [SerializeField] string question;
+    [SerializeField] string questionText;
     [SerializeField] Statement response;
+
+    public string QuestionText => questionText;
+    public Statement Response => response;
 }
 
 [Serializable]
