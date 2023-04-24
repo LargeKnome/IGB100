@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,11 +25,6 @@ public class DialogManager : MonoBehaviour
         {
             yield return TypeStatement(line);
 
-            yield return GameController.i.StateMachine.PushAndWait(ChoiceState.i);
-
-            if (!ChoiceState.i.Refute)
-                continue;
-
             yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
 
             if (!InventoryState.i.HasSelectedEvidence)
@@ -51,6 +47,17 @@ public class DialogManager : MonoBehaviour
         GameController.i.StateMachine.Pop();
     }
 
+    public IEnumerator ShowChoiceLine(string line)
+    {
+        GameController.i.StateMachine.Push(DialogState.i);
+
+        yield return TypeLine(line);
+
+        yield return GameController.i.StateMachine.PushAndWait(ChoiceState.i);
+
+        GameController.i.StateMachine.Pop();
+    }
+
     IEnumerator TypeStatement(Statement statement)
     {
         currentStatement = statement;
@@ -65,6 +72,13 @@ public class DialogManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => Input.GetButtonDown("Interact"));
     }
+}
+
+[Serializable]
+public class Question
+{
+    [SerializeField] string question;
+    [SerializeField] Statement response;
 }
 
 [Serializable]

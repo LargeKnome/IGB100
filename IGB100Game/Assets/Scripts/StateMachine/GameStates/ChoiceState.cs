@@ -6,7 +6,6 @@ public class ChoiceState : State<GameController>
 {
     [SerializeField] ChoiceBox choiceBox;
 
-    public bool Refute => choiceBox.Refute;
 
     public static ChoiceState i;
 

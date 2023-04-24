@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class ChoiceBox : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI refute;
+    [SerializeField] TextMeshProUGUI question;
     [SerializeField] TextMeshProUGUI cancel;
 
-    bool refuteSelected = true;
+    bool questionSelected = true;
     bool changeSelection;
-
-    public bool Refute => refuteSelected;
 
     public void HandleUpdate()
     {
@@ -19,22 +17,24 @@ public class ChoiceBox : MonoBehaviour
 
         if (vertical != 0 && changeSelection)
         {
-            refuteSelected = !refuteSelected;
+            questionSelected = !questionSelected;
             changeSelection = false;
         }
         else if (vertical == 0)
             changeSelection = true;
 
-        refute.color = (refuteSelected) ? Color.blue : Color.black;
-        cancel.color = (!refuteSelected) ? Color.blue : Color.black;
+        question.color = (questionSelected) ? Color.blue : Color.black;
+        cancel.color = (!questionSelected) ? Color.blue : Color.black;
 
         if (Input.GetButtonDown("Interact"))
-            GameController.i.StateMachine.Pop();
+        {
+            if(questionSelected)
+                GameController.i.StateMachine.Push(InterrogationState.i);
+            else
+                GameController.i.StateMachine.Pop();
+        }
 
         if (Input.GetButtonDown("Back"))
-        {
-            refuteSelected = false;
             GameController.i.StateMachine.Pop();
-        }
     }
 }
