@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class KeycodeInteract : MonoBehaviour, Interactable
+{
+    [SerializeField] int code;
+    [SerializeField] UnityEvent onCodeEntered;
+
+    public IEnumerator Interact()
+    {
+        yield return GameController.i.StateMachine.PushAndWait(KeycodeState.i);
+
+        if(code == KeycodeState.i.CurrentCode)
+            onCodeEntered?.Invoke();
+    }
+}
