@@ -62,7 +62,7 @@ public class InventoryUI : SelectionUI<EvidenceUI>
         evidenceDescription.text = "";
 
         foreach (string line in SelectedEvidence.Description)
-            evidenceDescription.text += line+"\n";
+            evidenceDescription.text += line+" ";
 
     }
 }
