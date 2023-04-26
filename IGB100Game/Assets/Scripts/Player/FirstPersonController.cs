@@ -42,12 +42,6 @@ public class FirstPersonController : MonoBehaviour
 
 	public event Action<bool> OnVisionActivate;
 
-	private void Awake()
-	{
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
-	}
-
 	private void Start()
 	{
 		mainCamera = GameController.i.MainCamera.gameObject;

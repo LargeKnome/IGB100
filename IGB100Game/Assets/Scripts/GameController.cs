@@ -20,6 +20,9 @@ public class GameController : MonoBehaviour
     {
         i = this;
         Evidence.detectivisionMat = detectivisionMat;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Start()

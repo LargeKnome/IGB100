@@ -8,9 +8,9 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
     public Action<int> OnSelect;
     public Action OnExit;
 
-    List<T> items;
+    protected List<T> items;
 
-    int currentSelection;
+    protected int currentSelection;
     int prevSelection;
     int selectionWidth;
     bool changeSelection;
@@ -28,6 +28,14 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
             item.OnSelectionChanged(false);
 
         OnSelectionChanged(true);
+    }
+
+    public void SetSelection(int selection)
+    {
+        prevSelection = currentSelection;
+        currentSelection = selection;
+
+        OnSelectionChanged(false);
     }
 
     public virtual void HandleUpdate()
