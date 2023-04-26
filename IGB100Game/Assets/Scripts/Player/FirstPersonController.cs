@@ -1,8 +1,8 @@
 ﻿using System;
 using TMPro;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour

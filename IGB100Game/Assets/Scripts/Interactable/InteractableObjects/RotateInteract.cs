@@ -11,7 +11,7 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     Vector3 baseRotation;
 
-    bool hasRotated = false;
+    bool hasRotated = true;
 
     public int locks;
 
@@ -22,7 +22,6 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-
         if (locks > 0)
             yield break;
 
@@ -47,10 +46,5 @@ public class RotateInteract : MonoBehaviour, Interactable
     public void unlock()
     {
         locks -= 1;
-
-        if (locks == 0)
-        {
-            Debug.Log("door unlocked");
-        }
     }
 }
