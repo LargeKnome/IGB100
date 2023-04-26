@@ -102,9 +102,11 @@ public class InterrogationUI : SelectionUI<InterrogationButtonUI>
 public class Question
 {
     [SerializeField] string questionText;
+    [SerializeField] Evidence requiredEvidence;
     [SerializeField] Statement response;
 
     public string QuestionText => questionText;
+    public Evidence RequiredEvidence => requiredEvidence;
     public Statement Response => response;
 }
 

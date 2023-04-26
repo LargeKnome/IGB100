@@ -59,6 +59,10 @@ public class InventoryUI : SelectionUI<EvidenceUI>
         base.OnSelectionChanged(onInit);
 
         evidenceName.text = SelectedEvidence.Name;
-        evidenceDescription.text = SelectedEvidence.Description;
+        evidenceDescription.text = "";
+
+        foreach (string line in SelectedEvidence.Description)
+            evidenceDescription.text += line+"\n";
+
     }
 }

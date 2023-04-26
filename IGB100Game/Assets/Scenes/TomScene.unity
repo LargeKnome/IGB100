@@ -2529,12 +2529,14 @@ MonoBehaviour:
   startingSentence: Do you want something?
   interrogationQuestions:
   - questionText: Where's the key to the closet?
+    requiredEvidence: {fileID: 0}
     response:
       statement: Why would I know?
       disprovingEvidence: {fileID: 1421056977}
       onCorrectEvidence: Wow, you found your key!
       onWrongEvidence: Like I said, I have no idea.
   - questionText: What's the code to the closet?
+    requiredEvidence: {fileID: 0}
     response:
       statement: 'You think I keep track of these things? My Husband always kept
         track of that stuff. '
@@ -2542,6 +2544,7 @@ MonoBehaviour:
       onCorrectEvidence: Look! The code! Now go unlock your precious little door
       onWrongEvidence: I already said, I have no idea what the code is.
   - questionText: Did you kill Mr Carlisle?
+    requiredEvidence: {fileID: 0}
     response:
       statement: What? How could you say that to me?
       disprovingEvidence: {fileID: 1633110937}
@@ -2679,6 +2682,7 @@ Transform:
   - {fileID: 4273250163864501}
   - {fileID: 1421056976}
   - {fileID: 1633110936}
+  - {fileID: 910465665}
   m_Father: {fileID: 1514386995}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2911,7 +2915,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d3b7841bec744b8df438aa9584747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDescription: An old, worn journal. Inside, the number "3168" is scrawled.
+  itemDescription:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!1001 &656505283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3985,6 +4049,119 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4273250617847128, guid: f383356d4eb91f44daddce1e70077112, type: 3}
   m_PrefabInstance: {fileID: 2124916651}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &910465664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 910465665}
+  - component: {fileID: 910465669}
+  - component: {fileID: 910465668}
+  - component: {fileID: 910465667}
+  - component: {fileID: 910465666}
+  m_Layer: 6
+  m_Name: Burned book
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &910465665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910465664}
+  m_LocalRotation: {x: -0.18301274, y: 0.18301274, z: -0.6830127, w: 0.6830127}
+  m_LocalPosition: {x: -2.62, y: 0.101, z: 6.411}
+  m_LocalScale: {x: 0.40000004, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 585178323}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 30, z: -90}
+--- !u!65 &910465666
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910465664}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.17798997, y: 0.7196194, z: 0.51727927}
+  m_Center: {x: -4.072325e-10, y: 0.0010534524, z: 0.0065499544}
+--- !u!114 &910465667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910465664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204d3b7841bec744b8df438aa9584747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemDescription:
+  - An old, burned book labeled 1948.
+  - Most pages are burned, but you can make out "holiday" on one of them.
+--- !u!23 &910465668
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910465664}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 51ed175570710df4cb7effdd44c97ffa, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &910465669
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910465664}
+  m_Mesh: {fileID: 4300000, guid: 7405d013b15855a45827cb6d0d2ede7b, type: 3}
 --- !u!1 &952129816
 GameObject:
   m_ObjectHideFlags: 0
@@ -5419,7 +5596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: statements.Array.data[0].disprovingEvidence
@@ -5438,6 +5615,14 @@ PrefabInstance:
       value: Did you kill Mr Carlisle?
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
+      propertyPath: interrogationQuestions.Array.data[3].questionText
+      value: Did the family go on a trip in 1948?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
+      propertyPath: interrogationQuestions.Array.data[3].requiredEvidence
+      value: 
+      objectReference: {fileID: 910465667}
+    - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[0].response.statement
       value: The key has been lost for quite some time, sire.
       objectReference: {fileID: 0}
@@ -5451,6 +5636,11 @@ PrefabInstance:
       value: Of course not, sire! How could you make such a baseless accusation?
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
+      propertyPath: interrogationQuestions.Array.data[3].response.statement
+      value: Ah yes, I remember the trip to Barbados. A beautiful holiday, July it
+        would have been. A very good trip, if I may say so sire.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[0].response.onWrongEvidence
       value: Sire, that is not a key.
       objectReference: {fileID: 0}
@@ -5461,6 +5651,10 @@ PrefabInstance:
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[2].response.onWrongEvidence
       value: What does this have to do with the Master?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
+      propertyPath: interrogationQuestions.Array.data[3].response.onWrongEvidence
+      value: What does this have to do with the trip to Barbados?
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[0].response.onCorrectEvidence
@@ -6029,7 +6223,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d3b7841bec744b8df438aa9584747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDescription: A key! I wonder what this opens...
+  itemDescription:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!65 &1421056978
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7030,7 +7258,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d3b7841bec744b8df438aa9584747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDescription: A confession note, signed by Mrs Carlisle
+  itemDescription:
+  - A page torn out of a diary, confessing to the Murder of Mr Carlisle.
+  - It's signed "Madame Carlisle".
 --- !u!65 &1633110938
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8583,7 +8813,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d3b7841bec744b8df438aa9584747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDescription: A letter. It tells the story of the pee pee poo poo man. Intimidating.
+  itemDescription:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!65 &1954146162
 BoxCollider:
   m_ObjectHideFlags: 0

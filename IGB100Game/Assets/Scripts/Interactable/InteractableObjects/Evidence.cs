@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Evidence : MonoBehaviour, Interactable
 {
-    [SerializeField] string itemDescription;
+    [SerializeField] string[] itemDescription;
 
     public string Name => name;
-    public string Description => itemDescription;
+    public string[] Description => itemDescription;
 
     public static Material detectivisionMat;
 
@@ -27,7 +27,8 @@ public class Evidence : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        yield return DialogManager.i.ShowLine(itemDescription);
+        foreach (string line in itemDescription)
+            yield return DialogManager.i.ShowLine(line);
         yield return DialogManager.i.ShowLine("I better take this with me.");
         GameController.i.Player.Inventory.AddEvidence(this);
 

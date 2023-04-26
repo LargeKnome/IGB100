@@ -22,6 +22,11 @@ public class QuestionUI : SelectionUI<QuestionTextUI>
         {
             if (suspect.AnsweredQuestions.Contains(question))
                 continue;
+            if (question.RequiredEvidence != null)
+            {
+                if (!GameController.i.Player.Inventory.EvidenceList.Contains(question.RequiredEvidence))
+                    continue;
+            }
 
             var questionText = Instantiate(questionTextPrefab, layoutGroup.transform);
             questionText.GetComponent<QuestionTextUI>().Init(question);
