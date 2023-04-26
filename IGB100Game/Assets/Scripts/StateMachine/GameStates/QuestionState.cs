@@ -16,7 +16,10 @@ public class QuestionState : State<GameController>
     public override void Enter(GameController owner)
     {
         questionUI.gameObject.SetActive(true);
-        questionUI.Init(InterrogationState.i.CurrentInterrogatee.InterrogationQuestions);
+        questionUI.Init(InterrogationState.i.CurrentSuspect);
+
+        questionUI.OnSelect += OnSelected;
+        questionUI.OnExit += OnExit;
     }
 
     public override void Execute()
@@ -26,6 +29,20 @@ public class QuestionState : State<GameController>
 
     public override void Exit()
     {
+        questionUI.OnSelect -= OnSelected;
+        questionUI.OnExit -= OnExit;
         questionUI.gameObject.SetActive(false);
     }
+
+    private void OnSelected(int selection)
+    {
+        InterrogationState.i.AskQuestion(questionUI.GetItemAtSelection().CurrentQuestion);
+        GameController.i.StateMachine.Pop();
+    }
+
+    void OnExit()
+    {
+        GameController.i.StateMachine.Pop();
+    }
+    
 }

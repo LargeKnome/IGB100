@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EvidenceUI : MonoBehaviour
+public class EvidenceUI : MonoBehaviour, ISelectableItem
 {
     [SerializeField] GameObject evidenceObj;
     [SerializeField] float rotationSpeed;
@@ -31,9 +31,8 @@ public class EvidenceUI : MonoBehaviour
         evidenceObj.transform.Rotate(Vector3.right, timeDiff);
     }
 
-    public void OnSelected(bool selected)
+    public void OnSelectionChanged(bool selected)
     {
-        //Disables background when evidence is not selected
         GetComponent<Image>().enabled = selected;
     }
 }

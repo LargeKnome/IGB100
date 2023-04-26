@@ -25,27 +25,36 @@ public class InventoryState : State<GameController>
         inventoryUI.gameObject.SetActive(true);
         inventoryUI.Init();
 
+        inventoryUI.OnSelect += OnSelect;
+        inventoryUI.OnExit += OnBack;
+
         HasSelectedEvidence = false;
     }
 
     public override void Execute()
     {
         inventoryUI.HandleUpdate();
-
-        if (inventoryUI.CurrentInventory.Count == 0) return;
-
-        if (gc.StateMachine.PrevState == InterrogationState.i)
-        {
-            if (Input.GetButtonDown("Interact"))
-            {
-                HasSelectedEvidence = true;
-                gc.StateMachine.Pop();
-            }
-        }
     }
 
     public override void Exit()
     {
+        inventoryUI.OnSelect -= OnSelect;
+        inventoryUI.OnExit -= OnBack;
+
         inventoryUI.gameObject.SetActive(false);
+    }
+
+    void OnSelect(int selected)
+    {
+        if (gc.StateMachine.PrevState == InterrogationState.i)
+        {
+            HasSelectedEvidence = true;
+            gc.StateMachine.Pop();
+        }
+    }
+
+    void OnBack()
+    {
+        gc.StateMachine.Pop();
     }
 }
