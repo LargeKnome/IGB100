@@ -7,8 +7,7 @@ public class InterrogationState : State<GameController>
     [SerializeField] InterrogationUI interrogationUI;
     [SerializeField] QuestionUI questionUI;
 
-    NPCController currentSuspect;
-    public NPCController CurrentSuspect => currentSuspect;
+    public NPCController CurrentSuspect { get; private set; }
 
     public static InterrogationState i;
     private void Awake()
@@ -19,9 +18,9 @@ public class InterrogationState : State<GameController>
     public override void Enter(GameController owner)
     {
         interrogationUI.gameObject.SetActive(true);
-        interrogationUI.Init(currentSuspect);
+        interrogationUI.Init(CurrentSuspect);
 
-        interrogationUI.OnSelect += HandleSelection;
+        interrogationUI.OnSelect += OnSelected;
     }
 
     public override void Execute()
@@ -31,18 +30,18 @@ public class InterrogationState : State<GameController>
 
     public override void Exit()
     {
-        interrogationUI.OnSelect -= HandleSelection;
+        interrogationUI.OnSelect -= OnSelected;
         interrogationUI.gameObject.SetActive(false);
     }
 
-    void HandleSelection(int selection)
+    void OnSelected(int selection)
     {
-        StartCoroutine(interrogationUI.HandleSelectionAsync(selection));
+        StartCoroutine(interrogationUI.HandleSelection(selection));
     }
 
-    public void SetCharacter(NPCController character)
+    public void SetSuspect(NPCController character)
     {
-        currentSuspect = character;
+        CurrentSuspect = character;
     }
 
     public void AskQuestion(Question question)

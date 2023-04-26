@@ -17,13 +17,11 @@ public class InterrogationUI : SelectionUI<InterrogationButtonUI>
     [SerializeField] List<InterrogationButtonUI> buttons;
     [SerializeField] GameObject dialogTextPrefab;
 
-    List<Statement> npcStatements;
+    List<InterrogationTextUI> npcStatements;
     NPCController currentSuspect;
-    Statement currentStatement;
 
     public void Init(NPCController suspect)
     {
-        currentStatement = null;
         currentSuspect = suspect;
         characterName.text = suspect.name;
 
@@ -52,21 +50,24 @@ public class InterrogationUI : SelectionUI<InterrogationButtonUI>
         var newDialog = Instantiate(dialogTextPrefab, dialogParent.transform);
 
         newDialog.GetComponent<TextMeshProUGUI>().text = text;
-        newDialog.GetComponent<TextMeshProUGUI>().color = (fromNPC) ? Color.black : Color.magenta;
+        newDialog.GetComponent<TextMeshProUGUI>().color = Color.magenta;
+
+        if (fromNPC)
+        {
+            npcStatements.Add(newDialog.GetComponent<InterrogationTextUI>());
+            newDialog.GetComponent<InterrogationTextUI>().Init(null);
+        }
     }
 
     void AddStatement(Statement statement)
     {
-        currentStatement = statement;
-        npcStatements.Add(statement);
-
         var newDialog = Instantiate(dialogTextPrefab, dialogParent.transform);
 
-        newDialog.GetComponent<TextMeshProUGUI>().text = statement.Dialog;
-        newDialog.GetComponent<TextMeshProUGUI>().color = Color.black;
+        newDialog.GetComponent<InterrogationTextUI>().Init(statement);
+        npcStatements.Add(newDialog.GetComponent<InterrogationTextUI>());
     }
 
-    public IEnumerator HandleSelectionAsync(int selection)
+    public IEnumerator HandleSelection(int selection)
     {
         if (selection == 0) // Question
         {
@@ -77,15 +78,17 @@ public class InterrogationUI : SelectionUI<InterrogationButtonUI>
         }
         else if (selection == 1) //Refute
         {
-            if (currentStatement == null)
+            if (npcStatements.Count == 0)
                 yield break;
 
-            yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
+            RefuteState.i.SetInterrogationTexts(npcStatements);
 
-            if (InventoryState.i.HasSelectedEvidence)
+            yield return GameController.i.StateMachine.PushAndWait(RefuteState.i);
+
+            if (InventoryState.i.HasSelectedEvidence && RefuteState.i.HasRefutedStatement)
             {
                 AddText(InventoryState.i.SelectedEvidence.Name + " was shown.", false);
-                AddText(currentStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence), true);
+                AddText(RefuteState.i.SelectedStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence), true);
             }
         }
         else if (selection == 2) //Exit

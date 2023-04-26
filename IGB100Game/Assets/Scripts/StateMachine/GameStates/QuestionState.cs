@@ -13,8 +13,12 @@ public class QuestionState : State<GameController>
         i = this;
     }
 
+    GameController gc;
+
     public override void Enter(GameController owner)
     {
+        gc = owner;
+
         questionUI.gameObject.SetActive(true);
         questionUI.Init(InterrogationState.i.CurrentSuspect);
 
@@ -37,12 +41,12 @@ public class QuestionState : State<GameController>
     private void OnSelected(int selection)
     {
         InterrogationState.i.AskQuestion(questionUI.GetItemAtSelection().CurrentQuestion);
-        GameController.i.StateMachine.Pop();
+        gc.StateMachine.Pop();
     }
 
     void OnExit()
     {
-        GameController.i.StateMachine.Pop();
+        gc.StateMachine.Pop();
     }
     
 }

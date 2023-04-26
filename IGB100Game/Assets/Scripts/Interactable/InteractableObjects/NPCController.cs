@@ -27,7 +27,7 @@ public class NPCController : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        InterrogationState.i.SetCharacter(this);
+        InterrogationState.i.SetSuspect(this);
         GameController.i.StateMachine.Push(BusyState.i);
 
         var prevCamPos = cam.transform.position;
