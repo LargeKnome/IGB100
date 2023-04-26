@@ -16,8 +16,8 @@ public class SlideInteract : MonoBehaviour, Interactable
 
     private void Awake()
     {
-        basePosition = transform.position;
-        newPosition += transform.parent.position;
+        basePosition = transform.parent.localPosition;
+        newPosition += transform.parent.localPosition;
     }
 
     public IEnumerator Interact()
@@ -34,9 +34,9 @@ public class SlideInteract : MonoBehaviour, Interactable
         {
             var newPos = (!hasSlid) ? basePosition : newPosition;
             t += Time.deltaTime;
-            transform.parent.position = Vector3.Lerp(transform.parent.position, newPos, t/slideTime);
+            transform.parent.localPosition = Vector3.Lerp(transform.parent.localPosition, newPos, t/slideTime);
 
-            if (transform.parent.position == newPos)
+            if (transform.parent.localPosition == newPos)
                 yield break;
 
             yield return null;
