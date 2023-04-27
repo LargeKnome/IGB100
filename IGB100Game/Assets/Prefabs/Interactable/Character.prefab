@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1142016745864846927}
   - component: {fileID: 1162414124}
   m_Layer: 6
-  m_Name: CameraThatShowsHowYouWillFaceThisCharacter
+  m_Name: FaceCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,13 +234,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b714bd6bf34b8644e9f4df69351496a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statements:
-  - statement: I was out bowling, my fingers still hurt from those holes.
-    disprovingEvidence: {fileID: 0}
-    onCorrectEvidence: I was using a different ball, obviously.
-    onWrongEvidence: That has nothing to do with what I'm saying.
-  - statement: The evidence is clear, they are the murderer.
-    disprovingEvidence: {fileID: 0}
-    onCorrectEvidence: 
-    onWrongEvidence: 
+  startingSentence: What would you like to ask?
+  interrogationQuestions:
+  - questionText: Are you the murderer?
+    response:
+      statement: No, I was bowling and lost my bowling ball at the bowling place.
+      disprovingEvidence: {fileID: 0}
+      onCorrectEvidence: Nooooooooo!
+      onWrongEvidence: See, can't prove anything!
+  - questionText: Have you seen a key around here?
+    response:
+      statement: I've never seen a key in my entire life.
+      disprovingEvidence: {fileID: 0}
+      onCorrectEvidence: Now I have, thank you.
+      onWrongEvidence: And I guess I never will.
   cameraPlace: {fileID: 1142016745864846926}

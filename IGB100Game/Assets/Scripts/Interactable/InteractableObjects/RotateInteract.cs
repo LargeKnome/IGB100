@@ -8,11 +8,12 @@ public class RotateInteract : MonoBehaviour, Interactable
     [SerializeField] Vector3 newRotation;
     [SerializeField] float rotationTime;
 
-    [SerializeField] Evidence requiredEvidence;
 
     Vector3 baseRotation;
 
-    bool hasRotated = false;
+    bool hasRotated = true;
+
+    public int locks;
 
     private void Awake()
     {
@@ -21,11 +22,8 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        if (requiredEvidence != null)
-        {
-            if (!GameController.i.Player.Inventory.EvidenceList.Contains(requiredEvidence))
-                yield break;
-        }
+        if (locks > 0)
+            yield break;
 
         float t = 0;
         hasRotated = !hasRotated;
@@ -43,5 +41,10 @@ public class RotateInteract : MonoBehaviour, Interactable
 
             yield return null;
         }
+    }
+
+    public void unlock()
+    {
+        locks -= 1;
     }
 }

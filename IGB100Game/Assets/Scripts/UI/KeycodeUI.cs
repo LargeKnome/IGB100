@@ -67,10 +67,10 @@ public class KeycodeUI : MonoBehaviour
         else if (input == 0)
             changeVertical = true;
 
-        if (currentValue < 1)
+        if (currentValue < 0)
             currentValue = 9;
         if (currentValue > 9)
-            currentValue = 1;
+            currentValue = 0;
 
         if (prevValue != currentValue)
         {

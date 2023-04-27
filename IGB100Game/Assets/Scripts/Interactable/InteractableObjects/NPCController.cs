@@ -6,7 +6,12 @@ public class NPCController : MonoBehaviour, Interactable
 {
     [Header("Default Dialog")]
     [SerializeField] string startingSentence;
-    [SerializeField] List<Statement> statements;
+
+    [SerializeField] List<Question> interrogationQuestions;
+    public List<Question> InterrogationQuestions => interrogationQuestions;
+
+    List<Question> answeredQuestions;
+    public List<Question> AnsweredQuestions => answeredQuestions;
 
     [SerializeField] Transform cameraPlace;
 
@@ -17,10 +22,12 @@ public class NPCController : MonoBehaviour, Interactable
     private void Start()
     {
         cam = GameController.i.MainCamera;
+        answeredQuestions = new List<Question>();
     }
 
     public IEnumerator Interact()
     {
+        InterrogationState.i.SetSuspect(this);
         GameController.i.StateMachine.Push(BusyState.i);
 
         var prevCamPos = cam.transform.position;
@@ -28,9 +35,7 @@ public class NPCController : MonoBehaviour, Interactable
 
         yield return MoveCamera(cameraPlace.position, cameraPlace.rotation);
 
-        yield return DialogManager.i.ShowLine(startingSentence);
-
-        yield return DialogManager.i.ShowDialog(statements);
+        yield return GameController.i.StateMachine.PushAndWait(InterrogationState.i);
 
         yield return MoveCamera(prevCamPos, prevCamRot);
 
