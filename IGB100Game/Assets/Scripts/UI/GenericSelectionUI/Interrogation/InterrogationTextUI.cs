@@ -7,13 +7,14 @@ public class InterrogationTextUI : MonoBehaviour, ISelectableItem
 {
     public Statement CurrentStatement { get; private set; }
 
-    public float Height => GetComponent<RectTransform>().rect.height;
+    public float Height { get; private set; }
 
     TextMeshProUGUI textMesh;
     public void Init(Statement statement)
     {
         textMesh = GetComponent<TextMeshProUGUI>();
         textMesh.color = Color.black;
+        Height = textMesh.GetComponent<RectTransform>().rect.height;
         CurrentStatement = statement;
 
         if (statement != null)
