@@ -10,6 +10,8 @@ public class InventoryState : State<GameController>
 
     public Evidence SelectedEvidence => inventoryUI.SelectedEvidence;
 
+    public List<EvidenceUI> SelectedAccusationEvidence { get; private set; }
+
     public bool HasSelectedEvidence { get; private set; }
 
     private void Awake()
@@ -21,6 +23,8 @@ public class InventoryState : State<GameController>
 
     public override void Enter(GameController owner)
     {
+        SelectedAccusationEvidence = new();
+
         gc = owner;
         inventoryUI.gameObject.SetActive(true);
         inventoryUI.Init();
@@ -34,6 +38,12 @@ public class InventoryState : State<GameController>
     public override void Execute()
     {
         inventoryUI.HandleUpdate();
+
+        if (gc.StateMachine.PrevState == AccusationState.i)
+        {
+            foreach (var evidenceUI in SelectedAccusationEvidence)
+                evidenceUI.OnSelectionChanged(true);
+        }
     }
 
     public override void Exit()
@@ -50,6 +60,17 @@ public class InventoryState : State<GameController>
         {
             HasSelectedEvidence = true;
             gc.StateMachine.Pop();
+        }
+        else if(gc.StateMachine.PrevState == AccusationState.i)
+        {
+            EvidenceUI currentSelection = inventoryUI.GetItemAtSelection();
+
+            if (SelectedAccusationEvidence.Contains(currentSelection))
+                SelectedAccusationEvidence.Remove(currentSelection);
+            else
+                SelectedAccusationEvidence.Add(currentSelection);
+
+            HasSelectedEvidence = SelectedAccusationEvidence.Count > 0;
         }
     }
 

@@ -43,7 +43,7 @@ public class RotateInteract : MonoBehaviour, Interactable
         }
     }
 
-    public void unlock()
+    public void Unlock()
     {
         locks -= 1;
     }
