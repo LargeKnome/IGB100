@@ -11,7 +11,7 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     Vector3 baseRotation;
 
-    bool hasRotated = true;
+    bool hasRotated = false;
 
     public int locks;
 
@@ -30,13 +30,13 @@ public class RotateInteract : MonoBehaviour, Interactable
 
         while (t < rotationTime)
         {
-            var newRot = (!hasRotated) ? baseRotation : newRotation;
+            var newRot = (!hasRotated) ? baseRotation : newRotation; 
 
             t += Time.deltaTime;
 
-            transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, Quaternion.Euler(newRot), t/rotationTime);
+            transform.parent.localRotation = Quaternion.RotateTowards(transform.parent.localRotation, Quaternion.Euler(newRot), t/rotationTime);
 
-            if (transform.parent.rotation == Quaternion.Euler(newRot))
+            if (transform.parent.localRotation == Quaternion.Euler(newRot))
                 yield break;
 
             yield return null;
