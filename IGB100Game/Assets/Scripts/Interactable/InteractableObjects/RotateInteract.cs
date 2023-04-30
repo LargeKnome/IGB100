@@ -34,7 +34,7 @@ public class RotateInteract : MonoBehaviour, Interactable
 
             t += Time.deltaTime;
 
-            transform.parent.localRotation = Quaternion.RotateTowards(transform.parent.localRotation, Quaternion.Euler(newRot), t/rotationTime);
+            transform.parent.localRotation = Quaternion.Euler(newRot);//RotateTowards(transform.parent.localRotation, Quaternion.Euler(newRot), t/rotationTime);
 
             if (transform.parent.localRotation == Quaternion.Euler(newRot))
                 yield break;
