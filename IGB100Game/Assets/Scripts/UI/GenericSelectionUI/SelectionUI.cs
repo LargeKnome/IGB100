@@ -40,7 +40,7 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 
     public virtual void HandleUpdate()
     {
-        if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Cancel"))
             OnExit?.Invoke();
 
         if (items == null) return;
@@ -58,7 +58,7 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
         if (currentSelection != prevSelection)
             OnSelectionChanged(false);
 
-        if (Input.GetButtonDown("Interact"))
+        if (Input.GetButtonDown("Submit"))
             OnSelect?.Invoke(currentSelection);
     }
     

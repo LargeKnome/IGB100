@@ -65,6 +65,7 @@ public class AccusationState : State<GameController>
     {
         gc.StateMachine.Pop();
     }
+    
 
     public void SetSuspects(List<NPCController> suspectList)
     {

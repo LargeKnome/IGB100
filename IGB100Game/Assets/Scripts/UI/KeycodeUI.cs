@@ -26,7 +26,8 @@ public class KeycodeUI : MonoBehaviour
 
     public void HandleUpdate()
     {
-        int prevKey = selectedKey;
+        foreach (TextMeshProUGUI key in keys)
+            key.color = Color.white;
 
         var input = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
 
@@ -39,16 +40,12 @@ public class KeycodeUI : MonoBehaviour
             changeHorizontal = true;
 
         selectedKey = Mathf.Clamp(selectedKey, 0, keys.Count - 1);
+        keys[selectedKey].color = Color.yellow;
 
-        if(prevKey != selectedKey)
-        {
-            keys[prevKey].color = Color.white;
-            keys[selectedKey].color = Color.yellow;
-        }
 
         HandleKeyUpdate(keys[selectedKey]);
 
-        if (Input.GetButtonDown("Interact") || Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Submit"))
             GameController.i.StateMachine.Pop();
     }
 

@@ -29,6 +29,6 @@ public class DialogManager : MonoBehaviour
         textMesh.text = line;
 
         yield return new WaitForEndOfFrame();
-        yield return new WaitUntil(() => Input.GetButtonDown("Interact"));
+        yield return new WaitUntil(() => Input.GetButtonDown("Submit"));
     }
 }
