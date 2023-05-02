@@ -6,26 +6,28 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InterrogationUI : SelectionUI<InterrogationButtonUI>
+public class InterrogationUI : MonoBehaviour
 {
     [Header("Character Info")]
     [SerializeField] Image characterProfile;
     [SerializeField] TextMeshProUGUI characterName;
 
     [Header("UI Objects")]
-    [SerializeField] GameObject dialogParent;
-    [SerializeField] List<InterrogationButtonUI> buttons;
+    [SerializeField] RectTransform dialogParent;
+    [SerializeField] List<GenericButton> buttons;
     [SerializeField] GameObject dialogTextPrefab;
 
-    List<InterrogationTextUI> npcStatements;
+    List<InterrogationTextUI> textUIs;
     NPCController currentSuspect;
+
+    InterrogationTextUI selectedStatement;
 
     public void Init(NPCController suspect)
     {
         currentSuspect = suspect;
         characterName.text = suspect.name;
 
-        npcStatements = new();
+        textUIs = new();
 
         foreach (Transform textObj in dialogParent.transform)
             Destroy(textObj.gameObject);
@@ -33,7 +35,7 @@ public class InterrogationUI : SelectionUI<InterrogationButtonUI>
         foreach(var answeredQuestion in suspect.AnsweredQuestions)
             AskQuestion(answeredQuestion);
 
-        SetItems(buttons, 1);
+        ResetScrolling();
     }
 
     public void AskQuestion(Question question)
@@ -52,49 +54,99 @@ public class InterrogationUI : SelectionUI<InterrogationButtonUI>
         newDialog.GetComponent<TextMeshProUGUI>().text = text;
         newDialog.GetComponent<TextMeshProUGUI>().color = Color.magenta;
 
+        var interrogationTextUI = newDialog.GetComponent<InterrogationTextUI>();
+        textUIs.Add(interrogationTextUI);
+
         if (fromNPC)
-        {
-            npcStatements.Add(newDialog.GetComponent<InterrogationTextUI>());
-            newDialog.GetComponent<InterrogationTextUI>().Init(null);
-        }
+            interrogationTextUI.Init(null, !fromNPC);
     }
 
     void AddStatement(Statement statement)
     {
         var newDialog = Instantiate(dialogTextPrefab, dialogParent.transform);
 
-        newDialog.GetComponent<InterrogationTextUI>().Init(statement);
-        npcStatements.Add(newDialog.GetComponent<InterrogationTextUI>());
+        var interrogationTextUI = newDialog.GetComponent<InterrogationTextUI>();
+        textUIs.Add(interrogationTextUI);
+        interrogationTextUI.Init(statement, false);
+
+        interrogationTextUI.GetComponent<Button>().onClick.AddListener(delegate { OnStatementSelected(interrogationTextUI); });
     }
 
-    public IEnumerator HandleSelection(int selection)
+
+    public void OnStatementSelected(InterrogationTextUI interrogationText)
     {
-        if (selection == 0) // Question
+        selectedStatement = interrogationText;
+        StartCoroutine(OnStatementSelectedAsync());
+    }
+
+    IEnumerator OnStatementSelectedAsync()
+    {
+        if (selectedStatement == null)
+            yield break;
+
+        if (selectedStatement.CurrentStatement == null)
+            yield break;
+
+        yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
+
+        if (InventoryState.i.HasSelectedEvidence)
         {
-            if (currentSuspect.AnsweredQuestions.Count == currentSuspect.InterrogationQuestions.Count)
-                yield break;
+            ResetScrolling();
 
-            yield return GameController.i.StateMachine.PushAndWait(QuestionState.i);
+            AddText(InventoryState.i.SelectedEvidence.Name + " was shown.", false);
+            AddText(selectedStatement.CurrentStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence), true);
         }
-        else if (selection == 1) //Refute
-        {
-            if (npcStatements.Count == 0)
-                yield break;
+    }
 
-            RefuteState.i.SetInterrogationTexts(npcStatements);
+    public void HandleScrolling()
+    {
+        //The vertical layout group of the interrogation box
+        VerticalLayoutGroup dialogContainer = dialogParent.GetComponent<VerticalLayoutGroup>();
 
-            yield return GameController.i.StateMachine.PushAndWait(RefuteState.i);
+        //Get the current scroll position of the interrogation box
+        var currentScrollPos = dialogParent.anchoredPosition.y;
 
-            if (InventoryState.i.HasSelectedEvidence && RefuteState.i.HasRefutedStatement)
-            {
-                AddText(InventoryState.i.SelectedEvidence.Name + " was shown.", false);
-                AddText(RefuteState.i.SelectedStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence), true);
-            }
-        }
-        else if (selection == 2) //Exit
-            GameController.i.StateMachine.Pop();
+        //Update the scroll position based on mouse wheel input
+        var updatedScrollPos = currentScrollPos -= Input.mouseScrollDelta.y;
 
-        yield return null;
+        //The amount to offset the maximum scroll distance to always keep at least one question/statement combo viewable
+        float textOffset = (textUIs.Count != 0) ? textUIs[0].Height + textUIs[1].Height + dialogContainer.spacing * 4 + dialogContainer.padding.top + dialogContainer.padding.bottom: 0;
+
+        //The maximum amount the interrogation box can scroll down
+        float maxScrollPos = -dialogParent.rect.height + textOffset;
+
+        if(maxScrollPos > 0)
+            maxScrollPos = 0;
+
+        //Clamp the scroll position between 0 and the height of the statement container
+        updatedScrollPos = Mathf.Clamp(updatedScrollPos, maxScrollPos, 0);
+
+        //Apply the updated scroll position
+        dialogParent.anchoredPosition = new Vector2(0.5f, updatedScrollPos);
+    }
+
+    public void ResetScrolling()
+    {
+        dialogParent.anchoredPosition = new Vector2(0.5f, 0);
+    }
+
+    public void OnAskQuestion()
+    {
+        if (GameController.i.StateMachine.CurrentState != InterrogationState.i) return;
+
+        if (currentSuspect.AnsweredQuestions.Count == currentSuspect.InterrogationQuestions.Count) return;
+
+        GameController.i.StateMachine.Push(QuestionState.i);
+    }
+
+    public void OnExitSelect()
+    {
+        if (GameController.i.StateMachine.CurrentState != InterrogationState.i) return;
+
+        foreach (var button in buttons)
+            button.UpdateSelection(false);
+
+        GameController.i.StateMachine.Pop();
     }
 }
 

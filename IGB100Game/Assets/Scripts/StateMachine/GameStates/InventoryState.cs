@@ -56,7 +56,7 @@ public class InventoryState : State<GameController>
 
     void OnSelect(int selected)
     {
-        if (gc.StateMachine.PrevState == RefuteState.i)
+        if (gc.StateMachine.PrevState == InterrogationState.i)
         {
             HasSelectedEvidence = true;
             gc.StateMachine.Pop();

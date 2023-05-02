@@ -21,32 +21,10 @@ public class QuestionState : State<GameController>
 
         questionUI.gameObject.SetActive(true);
         questionUI.Init(InterrogationState.i.CurrentSuspect);
-
-        questionUI.OnSelect += OnSelected;
-        questionUI.OnExit += OnExit;
-    }
-
-    public override void Execute()
-    {
-        questionUI.HandleUpdate();
     }
 
     public override void Exit()
     {
-        questionUI.OnSelect -= OnSelected;
-        questionUI.OnExit -= OnExit;
         questionUI.gameObject.SetActive(false);
-    }
-
-    private void OnSelected(int selection)
-    {
-        InterrogationState.i.AskQuestion(questionUI.GetItemAtSelection().CurrentQuestion);
-        gc.StateMachine.Pop();
-    }
-
-    void OnExit()
-    {
-        gc.StateMachine.Pop();
-    }
-    
+    }    
 }

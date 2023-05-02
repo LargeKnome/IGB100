@@ -1,18 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class QuestionUI : SelectionUI<QuestionTextUI>
+public class QuestionUI : MonoBehaviour
 {
     [SerializeField] GameObject questionTextPrefab;
     [SerializeField] GameObject layoutGroup;
 
-    List<QuestionTextUI> questionTexts;
-
     public void Init(NPCController suspect)
     {
-        questionTexts = new();
         var questions = suspect.InterrogationQuestions;
 
         foreach(Transform child in layoutGroup.transform)
@@ -22,6 +21,7 @@ public class QuestionUI : SelectionUI<QuestionTextUI>
         {
             if (suspect.AnsweredQuestions.Contains(question))
                 continue;
+
             if (question.RequiredEvidence != null)
             {
                 if (!GameController.i.Player.Inventory.EvidenceList.Contains(question.RequiredEvidence))
@@ -29,10 +29,16 @@ public class QuestionUI : SelectionUI<QuestionTextUI>
             }
 
             var questionText = Instantiate(questionTextPrefab, layoutGroup.transform);
-            questionText.GetComponent<QuestionTextUI>().Init(question);
-            questionTexts.Add(questionText.GetComponent<QuestionTextUI>());
-        }
+            var questionScript = questionText.GetComponent<QuestionTextUI>();
+            questionScript.Init(question);
 
-        SetItems(questionTexts, 1);
+            questionText.GetComponent<Button>().onClick.AddListener(delegate { OnSelected(questionScript.CurrentQuestion);});
+        }
+    }
+
+    public void OnSelected(Question questionToAsk)
+    {
+        InterrogationState.i.AskQuestion(questionToAsk);
+        GameController.i.StateMachine.Pop();
     }
 }

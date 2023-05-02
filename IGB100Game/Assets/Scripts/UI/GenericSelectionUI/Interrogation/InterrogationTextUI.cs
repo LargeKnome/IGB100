@@ -2,30 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class InterrogationTextUI : MonoBehaviour, ISelectableItem
+public class InterrogationTextUI : GenericButton
 {
+    public bool IsPlayerStatement { get; private set; } = true;
+
     public Statement CurrentStatement { get; private set; }
 
     public float Height { get; private set; }
 
-    TextMeshProUGUI textMesh;
-    public void Init(Statement statement)
+    public void Init(Statement statement, bool fromPlayer)
     {
+        IsPlayerStatement = fromPlayer;
+
         textMesh = GetComponent<TextMeshProUGUI>();
         textMesh.color = Color.black;
-        Height = textMesh.GetComponent<RectTransform>().rect.height;
         CurrentStatement = statement;
 
         if (statement != null)
             textMesh.text = statement.Dialog;
-        
+
+        Height = textMesh.GetComponent<RectTransform>().rect.height;
     }
-    public void OnSelectionChanged(bool selected)
+
+    public override void OnPointerEnter(PointerEventData eventData)
     {
-        if (CurrentStatement == null)
-            textMesh.color = (selected) ? Color.red : Color.black;
-        else
-            textMesh.color = (selected) ? Color.blue : Color.black;
+        if(!IsPlayerStatement)
+            textMesh.color = (CurrentStatement == null) ? Color.red : selectedColor;
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        if(!IsPlayerStatement)
+            base.OnPointerExit(eventData);
     }
 }

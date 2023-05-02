@@ -17,26 +17,24 @@ public class InterrogationState : State<GameController>
 
     public override void Enter(GameController owner)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         interrogationUI.gameObject.SetActive(true);
         interrogationUI.Init(CurrentSuspect);
-
-        interrogationUI.OnSelect += OnSelected;
     }
 
     public override void Execute()
     {
-        interrogationUI.HandleUpdate();
+        interrogationUI.HandleScrolling();
     }
 
     public override void Exit()
     {
-        interrogationUI.OnSelect -= OnSelected;
         interrogationUI.gameObject.SetActive(false);
-    }
 
-    void OnSelected(int selection)
-    {
-        StartCoroutine(interrogationUI.HandleSelection(selection));
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void SetSuspect(NPCController character)
