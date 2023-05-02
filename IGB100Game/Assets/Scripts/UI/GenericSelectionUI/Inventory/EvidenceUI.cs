@@ -1,17 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EvidenceUI : MonoBehaviour, ISelectableItem
+public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] GameObject evidenceObj;
     [SerializeField] float rotationSpeed;
+
+    [SerializeField] Color selectedColor;
+    [SerializeField] Color hoverColor;
+
+    Color defaultColor;
+
+    public event Action<EvidenceUI> onHoverEnter;
+
+    public bool Selected { get; set; }
+
+    Image background;
 
     public Evidence Evidence { get; private set; }
 
     public void Init(Evidence evidence)
     {
+        Selected = false;
+        background = GetComponent<Image>();
+        defaultColor = background.color;
+
         Evidence = evidence;
         evidenceObj.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
         evidenceObj.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
@@ -19,7 +38,6 @@ public class EvidenceUI : MonoBehaviour, ISelectableItem
         float sizeFactor = evidenceObj.transform.localScale.x/Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
         evidenceObj.transform.localScale = evidence.transform.localScale * sizeFactor;
     }
-
 
     public void HandleUpdate()
     {
@@ -31,8 +49,23 @@ public class EvidenceUI : MonoBehaviour, ISelectableItem
         evidenceObj.transform.Rotate(Vector3.right, timeDiff);
     }
 
-    public void OnSelectionChanged(bool selected)
+    public void SetSelected(bool selected)
     {
-        GetComponent<Image>().enabled = selected;
+        Selected = selected;
+
+        background.color = (Selected) ? selectedColor : hoverColor;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        background.color = (Selected) ? selectedColor : hoverColor;
+        onHoverEnter?.Invoke(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (Selected) return;
+
+        background.color = defaultColor;
     }
 }

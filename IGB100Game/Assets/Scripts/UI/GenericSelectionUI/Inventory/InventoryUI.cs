@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InventoryUI : SelectionUI<EvidenceUI>
+public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject evidencePrefab;
     [SerializeField] RectTransform evidenceParent;
@@ -16,10 +18,14 @@ public class InventoryUI : SelectionUI<EvidenceUI>
 
     const int gridColumnCount = 4;
 
-    public Evidence SelectedEvidence => (currentInventory.Count == 0) ? null : GetItemAtSelection().Evidence;
+    public List<EvidenceUI> SelectedAccusationEvidence { get; private set; }
+    public Evidence SelectedEvidence { get; private set; }
+    public bool HasSelectedEvidence { get; private set; }
 
     public void Init()
     {
+        HasSelectedEvidence = false;
+
         foreach(Transform child in evidenceParent)
             Destroy(child.gameObject);
 
@@ -28,9 +34,13 @@ public class InventoryUI : SelectionUI<EvidenceUI>
         foreach(var evidence in GameController.i.Player.Inventory.EvidenceList)
         {
             var evidenceObj = Instantiate(evidencePrefab);
-            evidenceObj.GetComponent<EvidenceUI>().Init(evidence);
+            var evidenceUI = evidenceObj.GetComponent<EvidenceUI>();
+            evidenceUI.Init(evidence);
+            evidenceUI.onHoverEnter += OnHoverChanged;
+
             evidenceObj.transform.SetParent(evidenceParent, false);
-            currentInventory.Add(evidenceObj.GetComponent<EvidenceUI>());
+            currentInventory.Add(evidenceUI);
+            evidenceObj.GetComponent<Button>().onClick.AddListener(delegate { OnSelect(evidenceUI); });
         }
 
         if (currentInventory.Count == 0)
@@ -39,30 +49,49 @@ public class InventoryUI : SelectionUI<EvidenceUI>
             evidenceName.gameObject.SetActive(false);
             return;
         }
+        else
+        {
+            evidenceName.gameObject.SetActive(false);
+            evidenceDescription.gameObject.SetActive(false);
+        }
+    }
 
-        SetItems(currentInventory, gridColumnCount);
+    void OnSelect(EvidenceUI selectedUI)
+    {
+        var prevState = GameController.i.StateMachine.PrevState;
+
+        if (prevState == InterrogationState.i)
+        {
+            SelectedEvidence = selectedUI.Evidence;
+            HasSelectedEvidence = true;
+            GameController.i.StateMachine.Pop();
+        }
+        else if (prevState == AccusationState.i)
+        {
+            if (SelectedAccusationEvidence.Contains(selectedUI))
+            {
+                SelectedAccusationEvidence.Remove(selectedUI);
+                selectedUI.SetSelected(false);
+            }
+            else
+            {
+                SelectedAccusationEvidence.Add(selectedUI);
+                selectedUI.SetSelected(true);
+            }
+
+            HasSelectedEvidence = SelectedAccusationEvidence.Count > 0;
+        }
+    }
+
+    public void OnHoverChanged(EvidenceUI currentHover)
+    {
         evidenceName.gameObject.SetActive(true);
-    }
+        evidenceDescription.gameObject.SetActive(true);
 
-    public override void HandleUpdate()
-    {
-        base.HandleUpdate();
-
-        if (currentInventory.Count == 0)
-            return;
-
-        GetItemAtSelection().HandleUpdate();
-    }
-
-    public override void OnSelectionChanged(bool onInit)
-    {
-        base.OnSelectionChanged(onInit);
-
-        evidenceName.text = SelectedEvidence.Name;
+        evidenceName.text = currentHover.Evidence.Name;
         evidenceDescription.text = "";
 
-        foreach (string line in SelectedEvidence.Description)
+        foreach (string line in currentHover.Evidence.Description)
             evidenceDescription.text += line+" ";
-
     }
 }

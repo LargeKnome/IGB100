@@ -281,10 +281,6 @@ PrefabInstance:
       propertyPath: buttons.Array.size
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 550873182, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
-      propertyPath: buttons.Array.data[1]
-      value: 
-      objectReference: {fileID: 1064812127}
     - target: {fileID: 93395375349151408, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
       propertyPath: m_Name
       value: Main
@@ -2570,17 +2566,6 @@ Transform:
   m_Father: {fileID: 1431698320}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1064812127 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3670377751581660517, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
-  m_PrefabInstance: {fileID: 367267350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58fc797d33ea4fe428339c861eb4e0f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1099406417
 GameObject:
   m_ObjectHideFlags: 0
