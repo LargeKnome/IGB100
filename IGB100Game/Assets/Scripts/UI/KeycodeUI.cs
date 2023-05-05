@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class KeycodeUI : MonoBehaviour
 {
-    List<TextMeshProUGUI> keys;
+    [SerializeField] List<TextMeshProUGUI> keys;
 
     bool changeHorizontal;
     bool changeVertical;
@@ -18,7 +18,6 @@ public class KeycodeUI : MonoBehaviour
 
     public void Init()
     {
-        keys = GetComponentsInChildren<TextMeshProUGUI>().ToList();
         selectedKey = 0;
         keys[selectedKey].color = Color.yellow;
         UpdateCode();
@@ -84,6 +83,7 @@ public class KeycodeUI : MonoBehaviour
         foreach (var keyCode in keys)
             currentCode += keyCode.text;
 
+        Debug.Log(currentCode);
         CurrentCode = Convert.ToInt16(currentCode);
     }
 }
