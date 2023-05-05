@@ -17,6 +17,8 @@ public class InterrogationUI : MonoBehaviour
     [SerializeField] List<GenericButton> buttons;
     [SerializeField] GameObject dialogTextPrefab;
 
+    [SerializeField] float scrollSpeed;
+
     List<InterrogationTextUI> textUIs;
     NPCController currentSuspect;
 
@@ -107,7 +109,7 @@ public class InterrogationUI : MonoBehaviour
         var currentScrollPos = dialogParent.anchoredPosition.y;
 
         //Update the scroll position based on mouse wheel input
-        var updatedScrollPos = currentScrollPos -= Input.mouseScrollDelta.y;
+        var updatedScrollPos = currentScrollPos -= Input.mouseScrollDelta.y * scrollSpeed;
 
         //The amount to offset the maximum scroll distance to always keep at least one question/statement combo viewable
         float textOffset = (textUIs.Count != 0) ? textUIs[0].Height + textUIs[1].Height + dialogContainer.spacing * 4 + dialogContainer.padding.top + dialogContainer.padding.bottom: 0;
