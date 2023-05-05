@@ -273,14 +273,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 550873182, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
-      propertyPath: dialogParent
-      value: 
-      objectReference: {fileID: 407685724}
-    - target: {fileID: 550873182, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
-      propertyPath: buttons.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 93395375349151408, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
       propertyPath: m_Name
       value: Main
@@ -2335,11 +2327,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
---- !u!224 &407685724 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 244598555, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
-  m_PrefabInstance: {fileID: 367267350}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &661424970
 GameObject:
   m_ObjectHideFlags: 0

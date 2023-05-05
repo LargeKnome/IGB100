@@ -504,7 +504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterProfile: {fileID: 1923102605}
   characterName: {fileID: 1137202527}
-  dialogParent: {fileID: 244598554}
+  dialogParent: {fileID: 244598555}
   buttons:
   - {fileID: 835758608100116800}
   - {fileID: 3670377751581660517}
