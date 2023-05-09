@@ -8,18 +8,9 @@ using UnityEngine;
 public class FirstPersonController : MonoBehaviour
 {
 	[Header("Player")]
-	[Tooltip("Move speed of the character in m/s")]
 	[SerializeField] float moveSpeed = 4.0f;
-	[Tooltip("Rotation speed of the character")]
 	[SerializeField] float rotationSpeed = 1.0f;
-	[Tooltip("The distance in m the character can interact from")]
 	[SerializeField] float interactionDistance;
-
-	[Space(10)]
-	[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-	public float gravityValue = -15.0f;
-
-	bool grounded = true;
 
 	//Camera
 	float topClamp = 90.0f;
@@ -27,9 +18,7 @@ public class FirstPersonController : MonoBehaviour
 	float targetPitch;
 
 	// player
-	float speed;
 	float rotationVelocity;
-	float verticalVelocity;
 
 	bool visionActivated = false;
 
@@ -51,8 +40,6 @@ public class FirstPersonController : MonoBehaviour
 
 	public void HandleUpdate()
 	{
-		Gravity();
-		GroundedCheck();
 		Move();
 
 		if (Input.GetButtonDown("Interact"))
@@ -99,13 +86,6 @@ public class FirstPersonController : MonoBehaviour
 		return "";
 	}
 
-	private void GroundedCheck()
-	{
-		// set sphere position
-		Vector3 spherePosition = transform.position;
-		grounded = Physics.CheckSphere(spherePosition, controller.radius, LayerManager.i.GroundLayer, QueryTriggerInteraction.Ignore);
-	}
-
 	private void CameraRotation()
 	{
 		Vector2 _mouseInput = new(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
@@ -131,47 +111,15 @@ public class FirstPersonController : MonoBehaviour
 
 	private void Move()
 	{
-		Vector2 _input = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		Vector2 movementVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-		// if there is no input, set the target speed to 0
-		speed = (_input != Vector2.zero) ? moveSpeed : 0.0f;
+		if (movementVector == Vector2.zero)
+			return;
 
-		// normalise input direction
-		Vector3 inputDirection = new Vector3(_input.x, 0.0f, _input.y).normalized;
-
-		// if there is a move input rotate player when the player is moving
-		if (_input != Vector2.zero)
-		{
-			// move
-			inputDirection = transform.right * _input.x + transform.forward * _input.y;
-		}
+		// Change input direction depending on where the player is facing
+		var inputDirection = transform.right * movementVector.x + transform.forward * movementVector.y;
 
 		// move the player
-		controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
-	}
-
-	private void Gravity()
-	{
-		if (grounded)
-		{
-			// stop our velocity dropping infinitely when grounded
-			if (verticalVelocity < 0.0f)
-				verticalVelocity = -2f;
-		}
-		else
-			// apply gravity over time (multiply by delta time twice to linearly speed up over time)
-			verticalVelocity += gravityValue * Time.deltaTime;
-	}
-
-	private void OnDrawGizmosSelected()
-	{
-		Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-		Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-
-		if (grounded) Gizmos.color = transparentGreen;
-		else Gizmos.color = transparentRed;
-
-		// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-		Gizmos.DrawSphere(transform.position, GetComponent<CharacterController>().radius);
+		controller.Move(moveSpeed * Time.deltaTime * inputDirection.normalized);
 	}
 }
