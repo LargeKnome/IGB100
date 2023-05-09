@@ -22,6 +22,9 @@ public class InterrogationState : State<GameController>
 
         interrogationUI.gameObject.SetActive(true);
         interrogationUI.Init(CurrentSuspect);
+
+        questionUI.gameObject.SetActive(true);
+        questionUI.Init(CurrentSuspect);
     }
 
     public override void Execute()
@@ -32,6 +35,7 @@ public class InterrogationState : State<GameController>
     public override void Exit()
     {
         interrogationUI.gameObject.SetActive(false);
+        questionUI.gameObject.SetActive(false);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -45,5 +49,6 @@ public class InterrogationState : State<GameController>
     public void AskQuestion(Question question)
     {
         interrogationUI.AskQuestion(question);
+        questionUI.Init(CurrentSuspect);
     }
 }

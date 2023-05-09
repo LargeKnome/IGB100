@@ -165,9 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  rotationSpeed: 1
-  interactionDistance: 0
-  gravityValue: -15
+  rotationSpeed: 2.5
+  interactionDistance: 3
 --- !u!114 &4476813009836491946
 MonoBehaviour:
   m_ObjectHideFlags: 0

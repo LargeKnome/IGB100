@@ -32,13 +32,7 @@ public class QuestionUI : MonoBehaviour
             var questionScript = questionText.GetComponent<QuestionTextUI>();
             questionScript.Init(question);
 
-            questionText.GetComponent<Button>().onClick.AddListener(delegate { OnSelected(questionScript.CurrentQuestion);});
+            questionText.GetComponent<Button>().onClick.AddListener(delegate { InterrogationState.i.AskQuestion(questionScript.CurrentQuestion);});
         }
-    }
-
-    public void OnSelected(Question questionToAsk)
-    {
-        InterrogationState.i.AskQuestion(questionToAsk);
-        GameController.i.StateMachine.Pop();
     }
 }

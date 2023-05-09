@@ -131,25 +131,6 @@ public class InterrogationUI : MonoBehaviour
     {
         dialogParent.anchoredPosition = new Vector2(0.5f, 0);
     }
-
-    public void OnAskQuestion()
-    {
-        if (GameController.i.StateMachine.CurrentState != InterrogationState.i) return;
-
-        if (currentSuspect.AnsweredQuestions.Count == currentSuspect.InterrogationQuestions.Count) return;
-
-        GameController.i.StateMachine.Push(QuestionState.i);
-    }
-
-    public void OnExitSelect()
-    {
-        if (GameController.i.StateMachine.CurrentState != InterrogationState.i) return;
-
-        foreach (var button in buttons)
-            button.UpdateSelection(false);
-
-        GameController.i.StateMachine.Pop();
-    }
 }
 
 [Serializable]
