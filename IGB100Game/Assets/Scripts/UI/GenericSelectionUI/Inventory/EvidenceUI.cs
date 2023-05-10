@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] GameObject evidenceObj;
+    [SerializeField] GameObject evidenceModel;
     [SerializeField] float rotationSpeed;
 
     [SerializeField] Color selectedColor;
@@ -32,21 +32,33 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         defaultColor = background.color;
 
         Evidence = evidence;
-        evidenceObj.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
-        evidenceObj.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
 
-        float sizeFactor = evidenceObj.transform.localScale.x/Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
-        evidenceObj.transform.localScale = evidence.transform.localScale * sizeFactor;
+        if (evidence is EvidenceObj evidenceObj)
+        {
+            evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
+            evidenceModel.GetComponent<MeshRenderer>().material = evidenceObj.DefaultMat;
+            float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
+            evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
+        }
+        else if(evidence is Key key)
+        {
+            evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
+            evidenceModel.GetComponent<MeshRenderer>().material = key.DefaultMat;
+            float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
+            evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
+        }
     }
 
     public void HandleUpdate()
     {
         float timeDiff = Time.deltaTime * rotationSpeed;
 
-        //Rotates the object over time
-        evidenceObj.transform.Rotate(Vector3.up, timeDiff);
-        evidenceObj.transform.Rotate(Vector3.forward, timeDiff);
-        evidenceObj.transform.Rotate(Vector3.right, timeDiff);
+        if (Evidence is EvidenceObj)
+        {
+            evidenceModel.transform.Rotate(Vector3.up, timeDiff);
+            evidenceModel.transform.Rotate(Vector3.forward, timeDiff);
+            evidenceModel.transform.Rotate(Vector3.right, timeDiff);
+        }
     }
 
     public void SetSelected(bool selected)

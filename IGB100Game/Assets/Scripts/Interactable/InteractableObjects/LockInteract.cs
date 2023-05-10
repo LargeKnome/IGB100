@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class LockInteract : MonoBehaviour, Interactable
 {
-    [SerializeField] Evidence requiredEvidence;
+    [SerializeField] Key requiredEvidence;
     [SerializeField] UnityEvent onUnlocked;
 
     private bool completed = false;

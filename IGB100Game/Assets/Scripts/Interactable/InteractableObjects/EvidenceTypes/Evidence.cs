@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Evidence : MonoBehaviour, Interactable
@@ -9,18 +10,23 @@ public class Evidence : MonoBehaviour, Interactable
     public string Name => name;
     public string[] Description => itemDescription;
 
+
     public static Material detectivisionMat;
 
-    Material defaultMat;
+    protected Material defaultMat;
     public Material DefaultMat => defaultMat;
+
+    protected virtual void OnStart()
+    {
+
+    }
 
     void Start()
     {
-        defaultMat = GetComponent<MeshRenderer>().material;
-        GameController.i.Player.OnVisionActivate += UpdateMaterial;
+        OnStart();
     }
 
-    void UpdateMaterial(bool activated)
+    protected void UpdateMaterial(bool activated)
     {
         gameObject.GetComponent<MeshRenderer>().material = (activated) ? detectivisionMat : defaultMat;
     }

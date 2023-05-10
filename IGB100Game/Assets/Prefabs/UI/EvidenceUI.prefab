@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1279820095e53e4eb362ad0bce8341e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evidenceObj: {fileID: 7866793961139908525}
+  evidenceModel: {fileID: 7866793961139908525}
   rotationSpeed: 50
   selectedColor: {r: 1, g: 1, b: 0, a: 0.5019608}
   hoverColor: {r: 1, g: 1, b: 1, a: 0.5019608}
