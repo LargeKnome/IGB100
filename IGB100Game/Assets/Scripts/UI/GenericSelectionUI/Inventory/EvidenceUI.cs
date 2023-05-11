@@ -47,13 +47,17 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
             evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
         }
+        else if(evidence is StatementEvidence statement)
+        {
+            evidenceModel.SetActive(false);
+        }
     }
 
     public void HandleUpdate()
     {
         float timeDiff = Time.deltaTime * rotationSpeed;
 
-        if (Evidence is EvidenceObj)
+        if (Evidence is EvidenceObj || Evidence is Key)
         {
             evidenceModel.transform.Rotate(Vector3.up, timeDiff);
             evidenceModel.transform.Rotate(Vector3.forward, timeDiff);

@@ -14,7 +14,7 @@ public class LockInteract : MonoBehaviour, Interactable
     {
         if (requiredEvidence != null)
         {
-            if (GameController.i.Player.Inventory.EvidenceList.Contains(requiredEvidence) && completed == false)
+            if (GameController.i.Player.Inventory.HasEvidence(requiredEvidence) && completed == false)
             {
                 completed = true;
                 onUnlocked.Invoke();

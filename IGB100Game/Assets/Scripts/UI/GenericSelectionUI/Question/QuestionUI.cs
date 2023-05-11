@@ -24,7 +24,7 @@ public class QuestionUI : MonoBehaviour
 
             if (question.RequiredEvidence != null)
             {
-                if (!GameController.i.Player.Inventory.EvidenceList.Contains(question.RequiredEvidence))
+                if (!GameController.i.Player.Inventory.HasEvidence(question.RequiredEvidence))
                     continue;
             }
 

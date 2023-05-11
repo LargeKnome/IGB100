@@ -17,6 +17,9 @@ public class InterrogationUI : MonoBehaviour
     [SerializeField] List<GenericButton> buttons;
     [SerializeField] GameObject dialogTextPrefab;
 
+    [Header("EvidencePrefabs")]
+    [SerializeField] GameObject statementPrefab;
+
     [SerializeField] float scrollSpeed;
 
     List<InterrogationTextUI> textUIs;
@@ -72,6 +75,9 @@ public class InterrogationUI : MonoBehaviour
         interrogationTextUI.Init(statement, false);
 
         interrogationTextUI.GetComponent<Button>().onClick.AddListener(delegate { OnStatementSelected(interrogationTextUI); });
+
+        if (statement.AddToEvidence && !GameController.i.Player.Inventory.HasStatement(statement))
+            Instantiate(statementPrefab).GetComponent<StatementEvidence>().Init(statement, currentSuspect);
     }
 
 
@@ -153,7 +159,10 @@ public class Statement
     [SerializeField] string onCorrectEvidence;
     [SerializeField] string onWrongEvidence;
 
+    [SerializeField] bool addStatementAsEvidence;
+
     public string Dialog => statement;
+    public bool AddToEvidence => addStatementAsEvidence;
 
     public string StatementOnEvidence(Evidence evidence)
     {
