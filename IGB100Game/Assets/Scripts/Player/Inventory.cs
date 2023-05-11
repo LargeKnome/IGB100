@@ -9,10 +9,6 @@ public class Inventory : MonoBehaviour
     List<Evidence> keyList;
     List<Evidence> statementList;
 
-    public List<Evidence> EvidenceObjList => evidenceObjList;
-    public List<Evidence> KeyList => keyList;
-    public List<Evidence> StatementList => statementList;
-
     public List<List<Evidence>> Evidence;
 
     private void Awake()

@@ -26,7 +26,6 @@ public class InventoryUI : MonoBehaviour
     public bool HasSelectedEvidence { get; private set; }
 
     int selectedCategory;
-    bool changeCategory;
 
     string[] categoryNames = new string[] {"Objects", "Keys", "Statements"};
 

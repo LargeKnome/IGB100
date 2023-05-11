@@ -3874,6 +3874,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
+      propertyPath: interrogationQuestions.Array.data[0].response.statement
+      value: I am not the murderer, I was bowling and lost my bowling ball at the
+        bowling place.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[0].response.disprovingEvidence
       value: 
       objectReference: {fileID: 1566344518}
