@@ -71,7 +71,8 @@ public class FirstPersonController : MonoBehaviour
 	{
 		//Returns true if looking at interactable object
 		if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hitInfo, interactionDistance))
-			return 1 << hitInfo.collider.gameObject.layer == LayerManager.i.InteractLayer.value;
+			if (hitInfo.collider.gameObject.tag != "HiddenInteract")
+				return 1 << hitInfo.collider.gameObject.layer == LayerManager.i.InteractLayer.value;
 
 		return false;
 
