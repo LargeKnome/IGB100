@@ -77,29 +77,9 @@ public class InventoryUI : MonoBehaviour
 
     void OnSelect(EvidenceUI selectedUI)
     {
-        var prevState = GameController.i.StateMachine.PrevState;
-
-        if (prevState == InterrogationState.i)
-        {
-            SelectedEvidence = selectedUI.Evidence;
-            HasSelectedEvidence = true;
-            GameController.i.StateMachine.Pop();
-        }
-        else if (prevState == AccusationState.i)
-        {
-            if (SelectedAccusationEvidence.Contains(selectedUI))
-            {
-                SelectedAccusationEvidence.Remove(selectedUI);
-                selectedUI.SetSelected(false);
-            }
-            else
-            {
-                SelectedAccusationEvidence.Add(selectedUI);
-                selectedUI.SetSelected(true);
-            }
-
-            HasSelectedEvidence = SelectedAccusationEvidence.Count > 0;
-        }
+        SelectedEvidence = selectedUI.Evidence;
+        HasSelectedEvidence = true;
+        GameController.i.StateMachine.Pop();
     }
 
     public void OnHoverChanged(EvidenceUI currentHover)

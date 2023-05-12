@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AccusationState : State<GameController>
 {
-    [SerializeField] NPCSelectionUI npcSelectionUI;
+    [SerializeField] AccusationUI accusationUI;
 
-    public NPCController AccusedNPC => npcSelectionUI.GetItemAtSelection().CurrentNPC;
-
-    public bool HasAccused { get; private set; }
-
-    List<NPCController> suspects;
+    public bool HasAccused => accusationUI.HasAccused;
 
     public static AccusationState i;
+
+    public Evidence Suspect => accusationUI.SelectedSuspect;
+    public Evidence Weapon => accusationUI.SelectedWeapon;
+    public Evidence Motive => accusationUI.SelectedMotive;
 
     GameController gc;
 
@@ -23,52 +23,19 @@ public class AccusationState : State<GameController>
 
     public override void Enter(GameController owner)
     {
-        HasAccused = false;
-
         gc = owner;
-        npcSelectionUI.Init(suspects);
-        npcSelectionUI.gameObject.SetActive(true);
+        accusationUI.gameObject.SetActive(true);
+        accusationUI.Init();
 
-        npcSelectionUI.OnSelect += OnSelect;
-        npcSelectionUI.OnExit += OnExit;
-    }
-
-    public override void Execute()
-    {
-        npcSelectionUI.HandleUpdate();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public override void Exit()
     {
-        npcSelectionUI.OnSelect -= OnSelect;
-        npcSelectionUI.OnExit -= OnExit;
-        npcSelectionUI.gameObject.SetActive(false);
-    }
+        accusationUI.gameObject.SetActive(false);
 
-    public void OnSelect(int selection)
-    {
-        StartCoroutine(HandleSelect());
-    }
-
-    IEnumerator HandleSelect()
-    {
-        yield return gc.StateMachine.PushAndWait(InventoryState.i);
-
-        if(InventoryState.i.HasSelectedEvidence)
-        {
-            HasAccused = true;
-            gc.StateMachine.Pop();
-        }
-    }
-
-    public void OnExit()
-    {
-        gc.StateMachine.Pop();
-    }
-    
-
-    public void SetSuspects(List<NPCController> suspectList)
-    {
-        suspects = suspectList;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

@@ -7,15 +7,10 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class EvidenceUI : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] GameObject evidenceModel;
     [SerializeField] float rotationSpeed;
-
-    [SerializeField] Color selectedColor;
-    [SerializeField] Color hoverColor;
-
-    Color defaultColor;
 
     public event Action<EvidenceUI> onHoverEnter;
 
@@ -29,21 +24,20 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         Selected = false;
         background = GetComponent<Image>();
-        defaultColor = background.color;
+
+        if(evidence == null)
+        {
+            evidenceModel.SetActive(false);
+            return;
+        }
 
         Evidence = evidence;
 
-        if (evidence is EvidenceObj evidenceObj)
+        if (evidence is EvidenceObj || evidence is Key)
         {
+            evidenceModel.SetActive(true);
             evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
-            evidenceModel.GetComponent<MeshRenderer>().material = evidenceObj.DefaultMat;
-            float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
-            evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
-        }
-        else if(evidence is Key key)
-        {
-            evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
-            evidenceModel.GetComponent<MeshRenderer>().material = key.DefaultMat;
+            evidenceModel.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
             float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
             evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
         }
@@ -65,23 +59,8 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
     }
 
-    public void SetSelected(bool selected)
-    {
-        Selected = selected;
-
-        background.color = (Selected) ? selectedColor : hoverColor;
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
-        background.color = (Selected) ? selectedColor : hoverColor;
         onHoverEnter?.Invoke(this);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (Selected) return;
-
-        background.color = defaultColor;
     }
 }

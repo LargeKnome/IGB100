@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public class PoliceChief : MonoBehaviour, Interactable
 {
-    [SerializeField] List<Evidence> requiredEvidence;
+    [SerializeField] Evidence motive;
+    [SerializeField] Evidence weapon;
     [SerializeField] NPCController murderer;
 
     [SerializeField] List<NPCController> suspectList;
@@ -15,25 +16,14 @@ public class PoliceChief : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        yield return DialogManager.i.ShowLine("Who would you like to accuse?");
-        AccusationState.i.SetSuspects(suspectList);
+        yield return DialogManager.i.ShowLine("What evidence do you have to show me?");
+
         yield return GameController.i.StateMachine.PushAndWait(AccusationState.i);
 
         if (!AccusationState.i.HasAccused)
             yield break;
 
-        bool successfulAccusation = true;
-
-        if (AccusationState.i.AccusedNPC != murderer)
-            successfulAccusation = false;
-
-        var chosenEvidence = InventoryState.i.SelectedAccusationEvidence.Select(o => o.Evidence).ToList();
-
-        foreach(var evidence in requiredEvidence)
-        {
-            if (!chosenEvidence.Contains(evidence))
-                successfulAccusation = false;
-        }
+        bool successfulAccusation = AccusationState.i.Suspect == murderer && AccusationState.i.Motive == motive && AccusationState.i.Weapon == weapon;
 
         if(successfulAccusation)
         {
