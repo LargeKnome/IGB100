@@ -7,83 +7,32 @@ using UnityEngine;
 
 public class KeycodeUI : MonoBehaviour
 {
-    [SerializeField] List<TextMeshProUGUI> keys;
-
-    bool changeHorizontal;
-    bool changeVertical;
-
-    int selectedKey;
+    [SerializeField] List<KeycodeNumUI> keys;
 
     public int CurrentCode { get; private set; }
+    public bool Submitted { get; private set; }
 
     public void Init()
     {
-        selectedKey = 0;
-        keys[selectedKey].color = Color.yellow;
+        Submitted = false;
+
+        foreach (var key in keys)
+        {
+            key.Init();
+            key.onChanged += UpdateCode;
+        }
+
         UpdateCode();
     }
 
-    public void HandleUpdate()
+    public void UpdateCode()
     {
-        foreach (TextMeshProUGUI key in keys)
-            key.color = Color.white;
-
-        var input = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
-
-        if (changeHorizontal && input != 0)
-        {
-            selectedKey += input;
-            changeHorizontal = false;
-        }
-        else if (input == 0)
-            changeHorizontal = true;
-
-        selectedKey = Mathf.Clamp(selectedKey, 0, keys.Count - 1);
-        keys[selectedKey].color = Color.yellow;
-
-
-        HandleKeyUpdate(keys[selectedKey]);
-
-        if (Input.GetButtonDown("Submit"))
-            GameController.i.StateMachine.Pop();
+        CurrentCode = keys[0].CurrentNum * 1000 + keys[1].CurrentNum * 100 + keys[2].CurrentNum * 10 + keys[3].CurrentNum;
     }
 
-    void HandleKeyUpdate(TextMeshProUGUI key)
+    public void OnSubmit()
     {
-        int currentValue = Convert.ToInt16(key.text);
-        int prevValue = currentValue;
-
-        var input = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
-
-        if (changeVertical && input != 0)
-        {
-            currentValue += input;
-            changeVertical = false;
-        }
-        else if (input == 0)
-            changeVertical = true;
-
-        if (currentValue < 0)
-            currentValue = 9;
-        if (currentValue > 9)
-            currentValue = 0;
-
-        if (prevValue != currentValue)
-        {
-            key.text = currentValue.ToString();
-
-            UpdateCode();
-        }
-    }
-
-    void UpdateCode()
-    {
-        string currentCode = "";
-
-        foreach (var keyCode in keys)
-            currentCode += keyCode.text;
-
-        Debug.Log(currentCode);
-        CurrentCode = Convert.ToInt16(currentCode);
+        Submitted = true;
+        GameController.i.StateMachine.Pop();
     }
 }

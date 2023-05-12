@@ -7,6 +7,7 @@ public class KeycodeState : State<GameController>
     [SerializeField] KeycodeUI keycodeUI;
 
     public int CurrentCode => keycodeUI.CurrentCode;
+    public bool Submitted => keycodeUI.Submitted;
 
     public static KeycodeState i;
     private void Awake()
@@ -19,15 +20,16 @@ public class KeycodeState : State<GameController>
         keycodeUI.gameObject.SetActive(true);
 
         keycodeUI.Init();
-    }
 
-    public override void Execute()
-    {
-        keycodeUI.HandleUpdate();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public override void Exit()
     {
         keycodeUI.gameObject.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
