@@ -14,7 +14,7 @@ public class KeycodeInteract : MonoBehaviour, Interactable
     {
         yield return GameController.i.StateMachine.PushAndWait(KeycodeState.i);
 
-        if(code == KeycodeState.i.CurrentCode && completed == false)
+        if(code == KeycodeState.i.CurrentCode && completed == false && KeycodeState.i.Submitted)
         {
             completed = true;
             onCodeEntered.Invoke();
