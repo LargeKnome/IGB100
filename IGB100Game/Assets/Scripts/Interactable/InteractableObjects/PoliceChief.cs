@@ -25,12 +25,15 @@ public class PoliceChief : MonoBehaviour, Interactable
 
         bool successfulAccusation = AccusationState.i.Suspect == murderer && AccusationState.i.Motive == motive && AccusationState.i.Weapon == weapon;
 
-        if(successfulAccusation)
+        if (successfulAccusation)
         {
             yield return DialogManager.i.ShowLine("Alright, I'm convinced. You solved the case, detective. well done.");
             OnSuccessfulAccusation?.Invoke();
         }
         else
+        {
             yield return DialogManager.i.ShowLine("I don't think I'm convinced.");
+            Reliability.i.AffectReliability(-33);
+        }
     }
 }

@@ -92,7 +92,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2950574551376636974}
-  m_Layer: 0
+  - component: {fileID: 6878592907873999958}
+  - component: {fileID: 9012999904672702301}
+  m_Layer: 6
   m_Name: NewLock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +118,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6878592907873999958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3271061333466555171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef44a4aed616054a91a8ec809883d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredEvidence: {fileID: 0}
+  onUnlocked:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &9012999904672702301
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3271061333466555171}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.6, z: 0.4}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1 &6591777342197423923
 GameObject:
   m_ObjectHideFlags: 0

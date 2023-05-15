@@ -26,6 +26,19 @@ public class Evidence : MonoBehaviour
         OnStart();
     }
 
+    protected IEnumerator OnPickup()
+    {
+        foreach (string line in itemDescription)
+            yield return DialogManager.i.ShowLine(line);
+        yield return DialogManager.i.ShowLine("I better take this with me.");
+        GameController.i.Player.Inventory.AddEvidence(this);
+
+        Reliability.i.AffectReliability(5);
+
+        gameObject.SetActive(false);
+        yield return null;
+    }
+
     protected void UpdateMaterial(bool activated)
     {
         gameObject.GetComponent<MeshRenderer>().material = (activated) ? detectivisionMat : defaultMat;

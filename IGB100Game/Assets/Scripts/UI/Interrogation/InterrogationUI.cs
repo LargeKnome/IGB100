@@ -167,10 +167,19 @@ public class Statement
     public string StatementOnEvidence(Evidence evidence)
     {
         if (disprovingEvidence == null)
+        {
+            Reliability.i.AffectReliability(-15);
             return onWrongEvidence;
+        }
         if (disprovingEvidence == evidence)
+        {
+            Reliability.i.AffectReliability(22);
             return onCorrectEvidence;
+        }
         else
+        {
+            Reliability.i.AffectReliability(-15);
             return onWrongEvidence;
+        }
     }
 }

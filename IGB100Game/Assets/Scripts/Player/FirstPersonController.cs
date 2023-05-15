@@ -43,7 +43,7 @@ public class FirstPersonController : MonoBehaviour
 		Move();
 
 		//Gravity
-        controller.Move(Vector3.down * 10 * Time.deltaTime);
+        controller.Move(10 * Time.deltaTime * Vector3.down);
 
         if (Input.GetButtonDown("Interact"))
 			HandleInteractInput();

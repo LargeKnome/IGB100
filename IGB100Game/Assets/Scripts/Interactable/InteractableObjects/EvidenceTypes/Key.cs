@@ -13,12 +13,6 @@ public class Key : Evidence, Interactable
 
     public IEnumerator Interact()
     {
-        foreach (string line in itemDescription)
-            yield return DialogManager.i.ShowLine(line);
-        yield return DialogManager.i.ShowLine("I better take this with me.");
-        GameController.i.Player.Inventory.AddEvidence(this);
-
-        gameObject.SetActive(false);
-        yield return null;
+        yield return OnPickup();
     }
 }

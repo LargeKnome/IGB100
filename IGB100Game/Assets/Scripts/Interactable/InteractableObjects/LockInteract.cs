@@ -12,15 +12,20 @@ public class LockInteract : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        if (requiredEvidence != null)
+        yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
+
+        if (InventoryState.i.HasSelectedEvidence)
         {
-            if (GameController.i.Player.Inventory.HasEvidence(requiredEvidence) && completed == false)
+            if (InventoryState.i.SelectedEvidence == requiredEvidence && completed == false)
             {
+                Reliability.i.AffectReliability(10);
                 completed = true;
                 onUnlocked.Invoke();
             }
+            else if (InventoryState.i.SelectedEvidence != requiredEvidence)
+            {
+                Reliability.i.AffectReliability(-7);
+            }
         }
-        
-        yield return null;
     }
 }

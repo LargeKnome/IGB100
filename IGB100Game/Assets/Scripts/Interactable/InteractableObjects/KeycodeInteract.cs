@@ -14,10 +14,16 @@ public class KeycodeInteract : MonoBehaviour, Interactable
     {
         yield return GameController.i.StateMachine.PushAndWait(KeycodeState.i);
 
-        if(code == KeycodeState.i.CurrentCode && completed == false && KeycodeState.i.Submitted)
+        if (KeycodeState.i.Submitted)
         {
-            completed = true;
-            onCodeEntered.Invoke();
+            if (code == KeycodeState.i.CurrentCode && completed == false)
+            {
+                Reliability.i.AffectReliability(10);
+                completed = true;
+                onCodeEntered.Invoke();
+            }
+            else if(code != KeycodeState.i.CurrentCode)
+                Reliability.i.AffectReliability(-7);
         }
     }
 }

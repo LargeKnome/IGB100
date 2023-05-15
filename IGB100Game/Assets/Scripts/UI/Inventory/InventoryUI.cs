@@ -19,8 +19,6 @@ public class InventoryUI : MonoBehaviour
     List<EvidenceUI> currentInventory;
     public List<EvidenceUI> CurrentInventory => currentInventory;
 
-    const int gridColumnCount = 4;
-
     public List<EvidenceUI> SelectedAccusationEvidence { get; private set; }
     public Evidence SelectedEvidence { get; private set; }
     public bool HasSelectedEvidence { get; private set; }
