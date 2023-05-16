@@ -17,6 +17,6 @@ public class StatementEvidence : Evidence
         currentStatement = statement;
         madeBy = source;
 
-        GameController.i.Player.Inventory.AddEvidence(this);
+        Inventory.i.AddEvidence(this);
     }
 }

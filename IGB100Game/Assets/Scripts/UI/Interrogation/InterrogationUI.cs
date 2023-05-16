@@ -76,7 +76,7 @@ public class InterrogationUI : MonoBehaviour
 
         interrogationTextUI.GetComponent<Button>().onClick.AddListener(delegate { OnStatementSelected(interrogationTextUI); });
 
-        if (statement.AddToEvidence && !GameController.i.Player.Inventory.HasStatement(statement))
+        if (statement.AddToEvidence && !Inventory.i.HasStatement(statement))
             Instantiate(statementPrefab).GetComponent<StatementEvidence>().Init(statement, currentSuspect);
     }
 

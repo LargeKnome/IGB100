@@ -25,7 +25,7 @@ public class InventoryUI : MonoBehaviour
 
     int selectedCategory;
 
-    string[] categoryNames = new string[] {"Objects", "Keys", "Statements"};
+    string[] categoryNames = new string[] {"Objects", "Keys", "Statements", "People"};
 
     public void Init()
     {
@@ -36,7 +36,7 @@ public class InventoryUI : MonoBehaviour
 
         currentInventory = new List<EvidenceUI>();
 
-        foreach(var evidence in GameController.i.Player.Inventory.Evidence[selectedCategory])
+        foreach(var evidence in Inventory.i.Evidence[selectedCategory])
         {
             var evidenceObj = Instantiate(evidencePrefab);
             var evidenceUI = evidenceObj.GetComponent<EvidenceUI>();
@@ -65,18 +65,22 @@ public class InventoryUI : MonoBehaviour
     {
         selectedCategory += diff;
 
-        if (selectedCategory > GameController.i.Player.Inventory.Evidence.Count - 1)
+        if (selectedCategory > Inventory.i.Evidence.Count - 1)
             selectedCategory = 0;
         else if (selectedCategory < 0)
-            selectedCategory = GameController.i.Player.Inventory.Evidence.Count - 1;
+            selectedCategory = Inventory.i.Evidence.Count - 1;
 
         Init();
     }
 
     void OnSelect(EvidenceUI selectedUI)
     {
+        if (GameController.i.StateMachine.PrevState == FreeRoamState.i)
+            return;
+
         SelectedEvidence = selectedUI.Evidence;
         HasSelectedEvidence = true;
+
         GameController.i.StateMachine.Pop();
     }
 

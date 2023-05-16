@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour, Interactable
+public class NPCController : Evidence, Interactable
 {
     //List of questions the player can ask the NPC during interrogation
     [SerializeField] List<Question> interrogationQuestions;
@@ -33,6 +33,8 @@ public class NPCController : MonoBehaviour, Interactable
     {
         //Sets the NPC as the one being interrogated
         InterrogationState.i.SetSuspect(this);
+
+        Inventory.i.AddEvidence(this);
 
         //Pushes busy state so player can't move when camera is moving
         GameController.i.StateMachine.Push(BusyState.i);

@@ -31,7 +31,8 @@ public class Evidence : MonoBehaviour
         foreach (string line in itemDescription)
             yield return DialogManager.i.ShowLine(line);
         yield return DialogManager.i.ShowLine("I better take this with me.");
-        GameController.i.Player.Inventory.AddEvidence(this);
+        
+        Inventory.i.AddEvidence(this);
 
         Reliability.i.AffectReliability(5);
 

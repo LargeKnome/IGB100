@@ -41,7 +41,7 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler
             float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
             evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
         }
-        else if(evidence is StatementEvidence statement)
+        else if(evidence is StatementEvidence || evidence is NPCController)
         {
             evidenceModel.SetActive(false);
         }
