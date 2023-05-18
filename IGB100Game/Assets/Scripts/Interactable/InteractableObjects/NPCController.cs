@@ -14,6 +14,10 @@ public class NPCController : Evidence, Interactable
     //The location to move the camera to when interacting with NPC
     [SerializeField] Transform cameraPlace;
 
+    [SerializeField] Sprite image;
+
+    public Sprite Image => image;
+
     Camera cam;
 
     const float camMoveSpeed = 4f;
