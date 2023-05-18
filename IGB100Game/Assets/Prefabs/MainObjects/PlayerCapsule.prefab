@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  rotationSpeed: 2.5
+  rotationSpeed: 4
   interactionDistance: 3
 --- !u!114 &4476813009836491946
 MonoBehaviour:
