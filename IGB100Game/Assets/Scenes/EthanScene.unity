@@ -4093,7 +4093,7 @@ PrefabInstance:
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[1].response.disprovingEvidence
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 210094626}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[0].response.addStatementAsEvidence
       value: 1

@@ -101,7 +101,11 @@ public class InterrogationUI : MonoBehaviour
         {
             ResetScrolling();
 
-            AddText(InventoryState.i.SelectedEvidence.Name + " was shown.", false);
+            if(InventoryState.i.SelectedEvidence is StatementEvidence)
+                AddText("The statement was shown.", false);
+            else
+                AddText(InventoryState.i.SelectedEvidence.Name + " was shown.", false);
+
             AddText(selectedStatement.CurrentStatement.StatementOnEvidence(InventoryState.i.SelectedEvidence), true);
         }
     }

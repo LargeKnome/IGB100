@@ -8,6 +8,7 @@ public class RotateInteract : MonoBehaviour, Interactable
     [SerializeField] Vector3 newRotation;
     [SerializeField] float rotationTime;
 
+    [SerializeField] AudioClip unlockSound;
 
     Vector3 baseRotation;
 
@@ -46,5 +47,8 @@ public class RotateInteract : MonoBehaviour, Interactable
     public void Unlock()
     {
         locks -= 1;
+
+        if (locks == 0)
+            AudioManager.i.PlaySFX(unlockSound);
     }
 }

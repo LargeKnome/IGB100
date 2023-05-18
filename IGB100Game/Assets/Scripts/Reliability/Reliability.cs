@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Reliability : MonoBehaviour
 {
+    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip loss;
+
     int currentReliability = 100;
 
     int gainedReliability = 0;
@@ -21,12 +24,18 @@ public class Reliability : MonoBehaviour
 
     public void AffectReliability(int diff)
     {
-       if(diff < 0)
+        if (diff < 0)
+        {
             lostReliability += diff;
+            AudioManager.i.PlaySFX(loss);
+        }
         else
+        {
             gainedReliability += diff;
+            AudioManager.i.PlaySFX(success);
+        }
 
-       currentReliability += diff;
+        currentReliability += diff;
 
         if (currentReliability > 100)
             currentReliability = 100;
