@@ -495,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newRotation: {x: 0, y: 90, z: 0}
   rotationTime: 1
+  unlockSound: {fileID: 8300000, guid: 5775f4261f269c64190515050f7e0856, type: 3}
   locks: 0
 --- !u!65 &6846887343707884652
 BoxCollider:

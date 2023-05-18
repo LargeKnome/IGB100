@@ -75,9 +75,6 @@ public class InventoryUI : MonoBehaviour
 
     void OnSelect(EvidenceUI selectedUI)
     {
-        if (GameController.i.StateMachine.PrevState == FreeRoamState.i)
-            return;
-
         SelectedEvidence = selectedUI.Evidence;
         HasSelectedEvidence = true;
 

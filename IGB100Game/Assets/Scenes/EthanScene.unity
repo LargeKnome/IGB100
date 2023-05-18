@@ -4074,6 +4074,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 21300000, guid: e938e3ca290952244a75570d00428b8d, type: 3}
+    - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: itemDescription.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4093,7 +4097,7 @@ PrefabInstance:
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[1].response.disprovingEvidence
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 210094626}
     - target: {fileID: 1142016747475240676, guid: 11a0b208b7d417740bccdd3698c1fb51, type: 3}
       propertyPath: interrogationQuestions.Array.data[0].response.addStatementAsEvidence
       value: 1
@@ -4228,8 +4232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cdbdecf1ddce2448e289fa50cfda7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motive: {fileID: 0}
-  weapon: {fileID: 0}
+  motive: {fileID: 210094626}
+  weapon: {fileID: 1566344518}
   murderer: {fileID: 1549532590}
   suspectList:
   - {fileID: 1549532590}

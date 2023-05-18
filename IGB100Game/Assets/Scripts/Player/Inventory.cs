@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
         else if (evidenceToCheck is StatementEvidence statementEvidence)
             return HasStatement(statementEvidence.CurrentStatement);
         else if(evidenceToCheck is NPCController npcEvidence)
-            return npcList?.Cast<EvidenceObj>().Where(o => o == npcEvidence).FirstOrDefault() != null;
+            return npcList?.Cast<NPCController>().Where(o => o == npcEvidence).FirstOrDefault() != null;
 
         return false;
     }

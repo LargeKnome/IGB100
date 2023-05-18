@@ -234,18 +234,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b714bd6bf34b8644e9f4df69351496a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingSentence: What would you like to ask?
+  itemDescription: []
   interrogationQuestions:
   - questionText: Are you the murderer?
+    requiredEvidence: {fileID: 0}
     response:
       statement: No, I was bowling and lost my bowling ball at the bowling place.
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: Nooooooooo!
       onWrongEvidence: See, can't prove anything!
+      addStatementAsEvidence: 0
   - questionText: Have you seen a key around here?
+    requiredEvidence: {fileID: 0}
     response:
       statement: I've never seen a key in my entire life.
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: Now I have, thank you.
       onWrongEvidence: And I guess I never will.
+      addStatementAsEvidence: 0
   cameraPlace: {fileID: 1142016745864846926}
+  image: {fileID: 21300000, guid: e938e3ca290952244a75570d00428b8d, type: 3}
