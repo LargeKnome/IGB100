@@ -668,6 +668,7 @@ GameObject:
   - component: {fileID: 6218548815007442745}
   - component: {fileID: 7053589908492839068}
   - component: {fileID: 5046166763854502998}
+  - component: {fileID: 8942810935214340885}
   m_Layer: 0
   m_Name: CabinetNoDoors
   m_TagString: Untagged
@@ -745,3 +746,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8942810935214340885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6703442704841424259}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0416846, y: 1.9836863, z: 0.5}
+  m_Center: {x: -0.00000047683716, y: 0.99184734, z: -0.000000014901158}
