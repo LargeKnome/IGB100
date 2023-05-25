@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 8580613058195955535}
   - component: {fileID: 2950062223753634911}
   - component: {fileID: 6729303648174529281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,6 +805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newRotation: {x: 0, y: 90, z: 0}
-  rotationTime: 30
+  rotationTime: 1
   unlockSound: {fileID: 0}
   locks: 0
