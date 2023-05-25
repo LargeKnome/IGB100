@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     List<Evidence> evidenceObjList;
     List<Evidence> keyList;
     List<Evidence> statementList;
+    List<Evidence> notesList;
     List<Evidence> npcList;
 
     public List<List<Evidence>> Evidence;
@@ -21,6 +22,7 @@ public class Inventory : MonoBehaviour
         evidenceObjList = new List<Evidence>();
         keyList = new List<Evidence>();
         statementList = new List<Evidence>();
+        notesList = new List<Evidence>();
         npcList = new List<Evidence>();
 
         Evidence = new()
@@ -28,6 +30,7 @@ public class Inventory : MonoBehaviour
             evidenceObjList,
             keyList,
             statementList,
+            notesList,
             npcList
         };
     }
@@ -43,6 +46,8 @@ public class Inventory : MonoBehaviour
             keyList.Add(evidenceKey);
         else if (newEvidence is StatementEvidence statementEvidence)
             statementList.Add(statementEvidence);
+        else if (newEvidence is Note note)
+            notesList.Add(note);
         else if (newEvidence is NPCController npcEvidence)
             npcList.Add(npcEvidence);
     }
@@ -55,6 +60,8 @@ public class Inventory : MonoBehaviour
             return keyList?.Cast<Key>().Where(o => o == key).FirstOrDefault() != null;
         else if (evidenceToCheck is StatementEvidence statementEvidence)
             return HasStatement(statementEvidence.CurrentStatement);
+        else if (evidenceToCheck is Note note)
+            return notesList?.Cast<Note>().Where(o => o == note).FirstOrDefault() != null;
         else if(evidenceToCheck is NPCController npcEvidence)
             return npcList?.Cast<NPCController>().Where(o => o == npcEvidence).FirstOrDefault() != null;
 

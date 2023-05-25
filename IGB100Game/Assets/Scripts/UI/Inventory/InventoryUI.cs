@@ -17,19 +17,20 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI evidenceDescription;
 
     List<EvidenceUI> currentInventory;
-    public List<EvidenceUI> CurrentInventory => currentInventory;
 
-    public List<EvidenceUI> SelectedAccusationEvidence { get; private set; }
+    bool canInspect;
+
     public Evidence SelectedEvidence { get; private set; }
     public bool HasSelectedEvidence { get; private set; }
 
     int selectedCategory;
 
-    string[] categoryNames = new string[] {"Objects", "Keys", "Statements", "People"};
+    string[] categoryNames = new string[] {"Objects", "Keys", "Statements", "Notes", "People"};
 
-    public void Init()
+    public void Init(bool lockInteract = false)
     {
         HasSelectedEvidence = false;
+        canInspect = !lockInteract;
 
         foreach(Transform child in evidenceParent)
             Destroy(child.gameObject);
@@ -70,7 +71,7 @@ public class InventoryUI : MonoBehaviour
         else if (selectedCategory < 0)
             selectedCategory = Inventory.i.Evidence.Count - 1;
 
-        Init();
+        Init(!canInspect);
     }
 
     void OnSelect(EvidenceUI selectedUI)
@@ -78,7 +79,10 @@ public class InventoryUI : MonoBehaviour
         SelectedEvidence = selectedUI.Evidence;
         HasSelectedEvidence = true;
 
-        GameController.i.StateMachine.Pop();
+        if (GameController.i.StateMachine.PrevState == FreeRoamState.i && canInspect)
+            GameController.i.StateMachine.Push(InspectionState.i);
+        else
+            GameController.i.StateMachine.Pop();
     }
 
     public void OnHoverChanged(EvidenceUI currentHover)

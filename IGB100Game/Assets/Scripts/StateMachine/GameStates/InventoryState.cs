@@ -8,9 +8,9 @@ public class InventoryState : State<GameController>
 
     public static InventoryState i;
 
-    public Evidence SelectedEvidence => inventoryUI.SelectedEvidence;
+    public bool InteractWithLock { get; set; }
 
-    public List<EvidenceUI> SelectedAccusationEvidence => inventoryUI.SelectedAccusationEvidence;
+    public Evidence SelectedEvidence => inventoryUI.SelectedEvidence;
 
     public bool HasSelectedEvidence => inventoryUI.HasSelectedEvidence;
 
@@ -28,15 +28,13 @@ public class InventoryState : State<GameController>
 
         gc = owner;
         inventoryUI.gameObject.SetActive(true);
-        inventoryUI.Init();
+        inventoryUI.Init(InteractWithLock);
+        InteractWithLock = false;
     }
 
     public override void Execute()
     {
         if (Input.GetKeyDown(KeyCode.Tab) && gc.StateMachine.PrevState == FreeRoamState.i)
-            gc.StateMachine.Pop();
-
-        if (Input.GetButtonDown("Exit") && gc.StateMachine.PrevState != FreeRoamState.i)
             gc.StateMachine.Pop();
     }
 

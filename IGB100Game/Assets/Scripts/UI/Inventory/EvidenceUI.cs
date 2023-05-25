@@ -7,10 +7,12 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class EvidenceUI : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] GameObject evidenceModel;
     [SerializeField] Image evidencePicture;
+
+    [SerializeField] bool doRotation;
     [SerializeField] float rotationSpeed;
 
     public event Action<EvidenceUI> onHoverEnter;
@@ -20,8 +22,6 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     Image background;
 
     public Evidence Evidence { get; private set; }
-
-    bool isHovered;
 
     public void Init(Evidence evidence)
     {
@@ -36,13 +36,15 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         Evidence = evidence;
 
-        if (evidence is EvidenceObj || evidence is Key)
+        if (evidence is EvidenceObj || evidence is Key || evidence is Note)
         {
             evidenceModel.SetActive(true);
             evidencePicture.gameObject.SetActive(false);
+
             evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
             evidenceModel.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
-            float sizeFactor = evidenceModel.transform.localScale.x / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
+
+            float sizeFactor = 35f / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
             evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;
         }
         else if(evidence is StatementEvidence || evidence is NPCController)
@@ -63,7 +65,7 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void Update()
     {
-        if (!isHovered) return;
+        if (!doRotation) return;
 
         float timeDiff = Time.deltaTime * rotationSpeed;
 
@@ -78,11 +80,5 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         onHoverEnter?.Invoke(this);
-        isHovered = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        isHovered = false;
     }
 }
