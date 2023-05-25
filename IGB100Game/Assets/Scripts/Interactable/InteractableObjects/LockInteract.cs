@@ -12,6 +12,7 @@ public class LockInteract : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
+        InventoryState.i.InteractWithLock = true;
         yield return GameController.i.StateMachine.PushAndWait(InventoryState.i);
 
         if (InventoryState.i.HasSelectedEvidence)
