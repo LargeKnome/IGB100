@@ -168,6 +168,15 @@ MonoBehaviour:
   moveSpeed: 4
   rotationSpeed: 4
   interactionDistance: 3
+  footsteps:
+  - {fileID: 8300000, guid: 04e4402f821e6471094d05dd86ce31bf, type: 3}
+  - {fileID: 8300000, guid: 3b1990ebab39340b1b5b9868797919fc, type: 3}
+  - {fileID: 8300000, guid: fca8f0e6e6dee4a74ad60a9818eaa84e, type: 3}
+  - {fileID: 8300000, guid: 0014d196cabeb47c090691ff38da85fa, type: 3}
+  - {fileID: 8300000, guid: 83a657a7bb8d34d32925009e759abc8c, type: 3}
+  - {fileID: 8300000, guid: c8fb00ca048674372b2223b7378f4460, type: 3}
+  - {fileID: 8300000, guid: 6355f914973924103b21e248444ecfb5, type: 3}
+  - {fileID: 8300000, guid: 14473cf0621f64832b30c822c759815e, type: 3}
 --- !u!114 &4476813009836491946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eef9b9c0592ce479ac119db0e0a857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  success: {fileID: 0}
+  loss: {fileID: 0}
 --- !u!1001 &2602486080878823520
 PrefabInstance:
   m_ObjectHideFlags: 0

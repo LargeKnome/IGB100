@@ -34,6 +34,9 @@ public class Evidence : MonoBehaviour
         
         Inventory.i.AddEvidence(this);
 
+        InspectionState.i.TempEvidence = this;
+        yield return GameController.i.StateMachine.PushAndWait(InspectionState.i);
+
         Reliability.i.AffectReliability(5);
 
         gameObject.SetActive(false);

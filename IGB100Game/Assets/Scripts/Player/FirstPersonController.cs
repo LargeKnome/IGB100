@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TMPro;
 //using UnityEditor.PackageManager;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class FirstPersonController : MonoBehaviour
 	[SerializeField] float moveSpeed = 4.0f;
 	[SerializeField] float rotationSpeed = 1.0f;
 	[SerializeField] float interactionDistance;
+	[SerializeField] List<AudioClip> footsteps;
 
 	//Camera
 	float topClamp = 90.0f;
@@ -19,6 +21,9 @@ public class FirstPersonController : MonoBehaviour
 
 	// player
 	float rotationVelocity;
+
+	float footstepTimer;
+	int footstepCount = 0;
 
 	bool visionActivated = false;
 
@@ -119,6 +124,19 @@ public class FirstPersonController : MonoBehaviour
 
 		if (movementVector == Vector2.zero)
 			return;
+
+		if (footstepTimer > 0)
+			footstepTimer -= Time.deltaTime;
+		else
+		{
+			var footstep = footsteps[footstepCount];
+			footstepTimer = footstep.length + 0.25f;
+			AudioManager.i.PlaySFX(footstep);
+
+			footstepCount++;
+			if (footstepCount > footsteps.Count - 1)
+				footstepCount = 0;
+		}
 
 		// Change input direction depending on where the player is facing
 		var inputDirection = transform.right * movementVector.x + transform.forward * movementVector.y;
