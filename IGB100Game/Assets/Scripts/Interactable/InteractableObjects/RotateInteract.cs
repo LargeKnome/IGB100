@@ -13,6 +13,7 @@ public class RotateInteract : MonoBehaviour, Interactable
     Vector3 baseRotation;
 
     bool hasRotated = false;
+    bool isRotating = false;
 
     public int locks;
 
@@ -23,11 +24,15 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     public IEnumerator Interact()
     {
-        if (locks > 0)
+        if (locks > 0 || isRotating)
             yield break;
+
+        isRotating = true;
 
         float t = 0;
         hasRotated = !hasRotated;
+
+        var prevRotation = transform.parent.localRotation;
 
         while (t < rotationTime)
         {
@@ -35,13 +40,15 @@ public class RotateInteract : MonoBehaviour, Interactable
 
             t += Time.deltaTime;
 
-            transform.parent.localRotation = Quaternion.RotateTowards(transform.parent.localRotation, Quaternion.Euler(newRot), t/rotationTime);
-
-            if (transform.parent.localRotation == Quaternion.Euler(newRot))
-                yield break;
+            transform.parent.localRotation = Quaternion.Slerp(prevRotation, Quaternion.Euler(newRot), t/rotationTime);
 
             yield return null;
         }
+
+        if(t >= rotationTime)
+            transform.parent.localRotation = (!hasRotated) ? Quaternion.Euler(baseRotation) : Quaternion.Euler(newRotation);
+
+        isRotating = false;
     }
 
     public void Unlock()
