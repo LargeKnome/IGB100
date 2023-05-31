@@ -17,9 +17,13 @@ public class RotateInteract : MonoBehaviour, Interactable
 
     public int locks;
 
+    BoxCollider collider;
+
     private void Awake()
     {
         baseRotation = transform.parent.localRotation.eulerAngles;
+
+        collider = GetComponent<BoxCollider>();
     }
 
     public IEnumerator Interact()
@@ -28,6 +32,8 @@ public class RotateInteract : MonoBehaviour, Interactable
             yield break;
 
         isRotating = true;
+
+        collider.enabled = false;
 
         float t = 0;
         hasRotated = !hasRotated;
@@ -49,6 +55,7 @@ public class RotateInteract : MonoBehaviour, Interactable
             transform.parent.localRotation = (!hasRotated) ? Quaternion.Euler(baseRotation) : Quaternion.Euler(newRotation);
 
         isRotating = false;
+        collider.enabled = true;
     }
 
     public void Unlock()

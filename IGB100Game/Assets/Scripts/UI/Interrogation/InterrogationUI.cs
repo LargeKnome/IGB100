@@ -48,8 +48,11 @@ public class InterrogationUI : MonoBehaviour
         AddText(question.QuestionText, false);
         AddStatement(question.Response);
 
-        if(!currentSuspect.AnsweredQuestions.Contains(question))
+        if (!currentSuspect.AnsweredQuestions.Contains(question))
+        {
             currentSuspect.AnsweredQuestions.Add(question);
+            currentSuspect.CheckNewQuestions();
+        }
     }
 
     void AddText(string text, bool fromNPC)

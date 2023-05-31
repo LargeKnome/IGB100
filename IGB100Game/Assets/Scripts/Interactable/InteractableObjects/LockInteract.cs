@@ -10,6 +10,31 @@ public class LockInteract : MonoBehaviour, Interactable
 
     private bool completed = false;
 
+    List<Material> defaultMats;
+
+    private void Awake()
+    {
+        defaultMats = new List<Material>();
+
+        foreach (Transform child in transform)
+            defaultMats.Add(child.GetComponent<MeshRenderer>().material);
+    }
+
+    private void Start()
+    {
+        GameController.i.Player.OnVisionActivate += UpdateMaterial;
+    }
+
+    void UpdateMaterial(bool activated)
+    {
+        int i = 0;
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<MeshRenderer>().material = (activated) ? GameController.i.Player.DetectivisionMat : defaultMats[i];
+            i++;
+        }
+    }
+
     public IEnumerator Interact()
     {
         InventoryState.i.InteractWithLock = true;

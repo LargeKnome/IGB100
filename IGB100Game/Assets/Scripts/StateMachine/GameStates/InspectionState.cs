@@ -8,6 +8,8 @@ public class InspectionState : State<GameController>
 
     public static InspectionState i;
 
+    public Evidence TempEvidence { get; set; }
+
     private void Awake()
     {
         i = this;
@@ -16,11 +18,27 @@ public class InspectionState : State<GameController>
     public override void Enter(GameController owner)
     {
         inspectionUI.gameObject.SetActive(true);
-        inspectionUI.Init(InventoryState.i.SelectedEvidence);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (TempEvidence != null)
+        {
+            inspectionUI.Init(TempEvidence);
+            TempEvidence = null;
+        }
+        else
+            inspectionUI.Init(InventoryState.i.SelectedEvidence);
     }
 
     public override void Exit()
     {
         inspectionUI.gameObject.SetActive(false);
+
+        if(GameController.i.StateMachine.PrevState == FreeRoamState.i)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }
