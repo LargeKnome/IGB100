@@ -35,8 +35,12 @@ public class Inventory : MonoBehaviour
             notesList,
             npcList
         };
+    }
 
-        foreach(var npc in FindObjectsOfType<NPCController>())
+    private void Start()
+    {
+        npcControllerList = new List<NPCController>();
+        foreach (var npc in FindObjectsOfType<NPCController>())
             npcControllerList.Add(npc);
     }
 

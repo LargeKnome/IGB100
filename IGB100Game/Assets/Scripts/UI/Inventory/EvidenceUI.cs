@@ -41,8 +41,11 @@ public class EvidenceUI : MonoBehaviour, IPointerEnterHandler
             evidenceModel.SetActive(true);
             evidencePicture.gameObject.SetActive(false);
 
-            evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
-            evidenceModel.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
+            if (evidence.GetComponent<MeshFilter>() != null)
+            {
+                evidenceModel.GetComponent<MeshFilter>().mesh = evidence.GetComponent<MeshFilter>().mesh;
+                evidenceModel.GetComponent<MeshRenderer>().material = evidence.DefaultMat;
+            }
 
             float sizeFactor = 35f / Mathf.Max(evidence.transform.localScale.x, evidence.transform.localScale.y, evidence.transform.localScale.z);
             evidenceModel.transform.localScale = evidence.transform.localScale * sizeFactor;

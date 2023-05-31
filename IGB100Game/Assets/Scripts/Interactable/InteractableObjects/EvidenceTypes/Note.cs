@@ -10,9 +10,7 @@ public class Note : Evidence, Interactable
 
     protected override void OnStart()
     {
-        defaultMat = GetComponent<MeshRenderer>().material;
-
-        GameController.i.Player.OnVisionActivate += UpdateMaterial;
+        SetUpMats();
     }
 
     public IEnumerator Interact()

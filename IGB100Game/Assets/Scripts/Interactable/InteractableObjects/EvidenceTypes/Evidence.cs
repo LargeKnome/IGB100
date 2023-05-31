@@ -11,7 +11,14 @@ public class Evidence : MonoBehaviour
     public string[] Description => itemDescription;
 
     protected Material defaultMat;
+    protected List<Material> defaultMats;
+
+    List<GameObject> children;
+
     public Material DefaultMat => defaultMat;
+    public List<Material> DefaultMats => defaultMats;
+
+    public List<GameObject> Children => children;
 
     protected virtual void OnStart()
     {
@@ -21,6 +28,26 @@ public class Evidence : MonoBehaviour
     void Start()
     {
         OnStart();
+    }
+
+    protected void SetUpMats()
+    {
+        if (GetComponent<MeshRenderer>() != null)
+            defaultMat = GetComponent<MeshRenderer>().material;
+        else
+        {
+            children = new List<GameObject>();
+
+            defaultMats = new List<Material>();
+
+            foreach (Transform child in transform)
+            {
+                children.Add(child.gameObject);
+                defaultMats.Add(child.GetComponent<MeshRenderer>().material);
+            }
+
+            GameController.i.Player.OnVisionActivate += UpdateMaterial;
+        }
     }
 
     protected IEnumerator OnPickup()
@@ -42,6 +69,16 @@ public class Evidence : MonoBehaviour
 
     protected void UpdateMaterial(bool activated)
     {
-        gameObject.GetComponent<MeshRenderer>().material = (activated) ? GameController.i.Player.DetectivisionMat : defaultMat;
+        if (gameObject.GetComponent<MeshRenderer>() != null)
+            gameObject.GetComponent<MeshRenderer>().material = (activated) ? GameController.i.Player.DetectivisionMat : defaultMat;
+        else
+        {
+            int i = 0;
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<MeshRenderer>().material = (activated) ? GameController.i.Player.DetectivisionMat : defaultMats[i];
+                i++;
+            }
+        }
     }
 }
