@@ -45,9 +45,9 @@ public class Evidence : MonoBehaviour
                 children.Add(child.gameObject);
                 defaultMats.Add(child.GetComponent<MeshRenderer>().material);
             }
-
-            GameController.i.Player.OnVisionActivate += UpdateMaterial;
         }
+
+        GameController.i.Player.OnVisionActivate += UpdateMaterial;
     }
 
     protected IEnumerator OnPickup()
