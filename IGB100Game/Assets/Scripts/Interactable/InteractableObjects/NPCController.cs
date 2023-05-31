@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class NPCController : Evidence, Interactable
 
     [SerializeField] Sprite image;
 
+    [SerializeField] GameObject exclamationMark;
+
     public Sprite Image => image;
 
     Camera cam;
@@ -26,6 +29,8 @@ public class NPCController : Evidence, Interactable
     {
         cam = GameController.i.MainCamera;
         AnsweredQuestions = new List<Question>();
+
+        CheckNewQuestions();
     }
 
     /*
@@ -75,5 +80,25 @@ public class NPCController : Evidence, Interactable
             cam.transform.SetPositionAndRotation(Vector3.Lerp(prevPos, newCamPos, t), Quaternion.Lerp(prevRot, newCamRot, t));
             yield return null;
         }
+    }
+
+    public void CheckNewQuestions()
+    {
+        foreach (var question in interrogationQuestions)
+        {
+            if (question.RequiredEvidence != null)
+            {
+                if (!Inventory.i.HasEvidence(question.RequiredEvidence))
+                    continue;
+            }
+
+            if (!AnsweredQuestions.Contains(question))
+            {
+                exclamationMark.SetActive(true);
+                return;
+            }
+        }
+
+        exclamationMark.SetActive(false);
     }
 }

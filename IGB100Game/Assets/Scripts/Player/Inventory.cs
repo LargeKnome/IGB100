@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
 
     public static Inventory i;
 
+    List<NPCController> npcControllerList;
+
     private void Awake()
     {
         i = this;
@@ -33,6 +35,9 @@ public class Inventory : MonoBehaviour
             notesList,
             npcList
         };
+
+        foreach(var npc in FindObjectsOfType<NPCController>())
+            npcControllerList.Add(npc);
     }
 
     public void AddEvidence(Evidence newEvidence)
@@ -50,6 +55,9 @@ public class Inventory : MonoBehaviour
             notesList.Add(note);
         else if (newEvidence is NPCController npcEvidence)
             npcList.Add(npcEvidence);
+
+        foreach(var npc in npcControllerList)
+            npc.CheckNewQuestions();
     }
 
     public bool HasEvidence(Evidence evidenceToCheck)

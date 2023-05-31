@@ -17,10 +17,7 @@ public class KeycodeInteract : MonoBehaviour, Interactable
         defaultMats = new List<Material>();
 
         foreach (Transform child in transform)
-        {
             defaultMats.Add(child.GetComponent<MeshRenderer>().material);
-            Debug.Log(child.GetComponent<MeshRenderer>().material);
-        }
     }
 
     private void Start()
