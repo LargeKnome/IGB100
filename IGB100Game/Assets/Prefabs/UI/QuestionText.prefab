@@ -71,8 +71,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Did you kill the victim?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5acdc59f17740d341b660f4580f92a22, type: 2}
+  m_sharedMaterial: {fileID: 5414393466006007952, guid: 5acdc59f17740d341b660f4580f92a22, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
