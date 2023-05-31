@@ -53,8 +53,8 @@ public class Evidence : MonoBehaviour
     protected IEnumerator OnPickup()
     {
         foreach (string line in itemDescription)
-            yield return DialogManager.i.ShowLine(line);
-        yield return DialogManager.i.ShowLine("I better take this with me.");
+            yield return DialogManager.i.ShowLine(line, true);
+        yield return DialogManager.i.ShowLine("I better take this with me.", false);
         
         Inventory.i.AddEvidence(this);
 
