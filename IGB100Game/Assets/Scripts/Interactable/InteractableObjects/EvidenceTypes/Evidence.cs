@@ -10,9 +10,6 @@ public class Evidence : MonoBehaviour
     public string Name => name;
     public string[] Description => itemDescription;
 
-
-    public static Material detectivisionMat;
-
     protected Material defaultMat;
     public Material DefaultMat => defaultMat;
 
@@ -45,6 +42,6 @@ public class Evidence : MonoBehaviour
 
     protected void UpdateMaterial(bool activated)
     {
-        gameObject.GetComponent<MeshRenderer>().material = (activated) ? detectivisionMat : defaultMat;
+        gameObject.GetComponent<MeshRenderer>().material = (activated) ? GameController.i.Player.DetectivisionMat : defaultMat;
     }
 }

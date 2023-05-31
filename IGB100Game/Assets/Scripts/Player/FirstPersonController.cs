@@ -14,6 +14,10 @@ public class FirstPersonController : MonoBehaviour
 	[SerializeField] float interactionDistance;
 	[SerializeField] List<AudioClip> footsteps;
 
+	[SerializeField] Material detectivisionMat;
+
+	public Material DetectivisionMat => detectivisionMat;
+
 	//Camera
 	float topClamp = 90.0f;
 	float bottomClamp = -90.0f;

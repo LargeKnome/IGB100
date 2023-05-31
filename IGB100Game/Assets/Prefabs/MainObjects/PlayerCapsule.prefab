@@ -177,6 +177,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c8fb00ca048674372b2223b7378f4460, type: 3}
   - {fileID: 8300000, guid: 6355f914973924103b21e248444ecfb5, type: 3}
   - {fileID: 8300000, guid: 14473cf0621f64832b30c822c759815e, type: 3}
+  detectivisionMat: {fileID: 2100000, guid: 41c9a158df1bbad4fa6abc311b89e6f6, type: 2}
 --- !u!114 &4476813009836491946
 MonoBehaviour:
   m_ObjectHideFlags: 0

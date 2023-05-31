@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         i = this;
-        Evidence.detectivisionMat = detectivisionMat;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
