@@ -9,13 +9,12 @@ using UnityEngine.UI;
 public class InterrogationUI : MonoBehaviour
 {
     [Header("Character Info")]
-    [SerializeField] Image characterProfile;
     [SerializeField] TextMeshProUGUI characterName;
 
     [Header("UI Objects")]
     [SerializeField] RectTransform dialogParent;
-    [SerializeField] List<GenericButton> buttons;
     [SerializeField] GameObject dialogTextPrefab;
+    [SerializeField] QuestionUI questionUI;
 
     [Header("EvidencePrefabs")]
     [SerializeField] GameObject statementPrefab;
@@ -40,6 +39,8 @@ public class InterrogationUI : MonoBehaviour
         foreach(var answeredQuestion in suspect.AnsweredQuestions)
             AskQuestion(answeredQuestion);
 
+        questionUI.Init(currentSuspect);
+
         ResetScrolling();
     }
 
@@ -53,6 +54,8 @@ public class InterrogationUI : MonoBehaviour
             currentSuspect.AnsweredQuestions.Add(question);
             currentSuspect.CheckNewQuestions();
         }
+
+        questionUI.Init(currentSuspect);
     }
 
     void AddText(string text, bool fromNPC)

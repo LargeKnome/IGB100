@@ -5,7 +5,6 @@ using UnityEngine;
 public class InterrogationState : State<GameController>
 {
     [SerializeField] InterrogationUI interrogationUI;
-    [SerializeField] QuestionUI questionUI;
 
     public NPCController CurrentSuspect { get; private set; }
 
@@ -22,9 +21,6 @@ public class InterrogationState : State<GameController>
 
         interrogationUI.gameObject.SetActive(true);
         interrogationUI.Init(CurrentSuspect);
-
-        questionUI.gameObject.SetActive(true);
-        questionUI.Init(CurrentSuspect);
     }
 
     public override void Execute()
@@ -34,11 +30,10 @@ public class InterrogationState : State<GameController>
 
     public override void Exit()
     {
-        interrogationUI.gameObject.SetActive(false);
-        questionUI.gameObject.SetActive(false);
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        interrogationUI.gameObject.SetActive(false);
     }
 
     public void SetSuspect(NPCController character)
@@ -49,6 +44,5 @@ public class InterrogationState : State<GameController>
     public void AskQuestion(Question question)
     {
         interrogationUI.AskQuestion(question);
-        questionUI.Init(CurrentSuspect);
     }
 }
