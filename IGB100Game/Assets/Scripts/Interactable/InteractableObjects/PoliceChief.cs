@@ -10,8 +10,6 @@ public class PoliceChief : MonoBehaviour, Interactable
     [SerializeField] Evidence weapon;
     [SerializeField] NPCController murderer;
 
-    [SerializeField] List<NPCController> suspectList;
-
     [SerializeField] UnityEvent OnSuccessfulAccusation;
 
     public IEnumerator Interact()
@@ -28,6 +26,10 @@ public class PoliceChief : MonoBehaviour, Interactable
         if (successfulAccusation)
         {
             yield return DialogManager.i.ShowLine("Alright, I'm convinced. You solved the case, detective. well done.", false);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             OnSuccessfulAccusation?.Invoke();
         }
         else

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.029087335, g: 0.0298977, b: 0.029896773, a: 1}
+  m_IndirectSpecularColor: {r: 0.029087335, g: 0.0298977, b: 0.029896766, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7100,7 +7100,7 @@ MonoBehaviour:
         what happened. I wonder if he tripped and fell, but i truly have no idea. '
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: 
-      onWrongEvidence: 
+      onWrongEvidence: Again, I have no idea what happened.
       addStatementAsEvidence: 0
   - questionText: What's the passcode to the master bedroom closet?
     requiredEvidence: {fileID: 0}
@@ -7108,7 +7108,7 @@ MonoBehaviour:
       statement: Oh, I can never remember these things - I'm so sorry.
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: 
-      onWrongEvidence: 
+      onWrongEvidence: That doesn't ring any bells for me.
       addStatementAsEvidence: 1
   - questionText: Were you in an affair with a "Mr Archer"?
     requiredEvidence: {fileID: 1095385953}
@@ -17695,15 +17695,7 @@ MonoBehaviour:
       statement: Hardly sir, how could you accuse me of such.... treachery?
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: 
-      onWrongEvidence: 
-      addStatementAsEvidence: 1
-  - questionText: Did you kill Mr Carlisle?
-    requiredEvidence: {fileID: 0}
-    response:
-      statement: Hardly sir, how could you accuse me of such.... treachery?
-      disprovingEvidence: {fileID: 0}
-      onCorrectEvidence: 
-      onWrongEvidence: 
+      onWrongEvidence: Sir, I must reiterate that I had no hand in the matter.
       addStatementAsEvidence: 1
   cameraPlace: {fileID: 639181325}
   image: {fileID: 0}
@@ -19957,7 +19949,7 @@ MonoBehaviour:
       statement: I- No, of course I didn't!
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: 
-      onWrongEvidence: 
+      onWrongEvidence: How does that prove I did?
       addStatementAsEvidence: 0
   - questionText: What's the passcode to the master bedroom closet?
     requiredEvidence: {fileID: 0}
@@ -19966,7 +19958,7 @@ MonoBehaviour:
         it was the date of their 20th anniversary?
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: 
-      onWrongEvidence: 
+      onWrongEvidence: I've already told you all I know.
       addStatementAsEvidence: 0
   cameraPlace: {fileID: 1133213880}
   image: {fileID: 0}
@@ -20392,11 +20384,6 @@ MonoBehaviour:
   motive: {fileID: 278905517}
   weapon: {fileID: 8279998125219554447}
   murderer: {fileID: 368577869}
-  suspectList:
-  - {fileID: 1152704622}
-  - {fileID: 368577869}
-  - {fileID: 989389319}
-  - {fileID: 884206582}
   OnSuccessfulAccusation:
     m_PersistentCalls:
       m_Calls:
@@ -23640,7 +23627,7 @@ MonoBehaviour:
       statement: No, how could I have? How could you accuse me of that?
       disprovingEvidence: {fileID: 0}
       onCorrectEvidence: 
-      onWrongEvidence: 
+      onWrongEvidence: Stop trying to accuse me, I didn't do it!
       addStatementAsEvidence: 1
   cameraPlace: {fileID: 301151566}
   image: {fileID: 0}
@@ -36899,11 +36886,72 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
       propertyPath: page.Array.data[0]
-      value: 1245 - Wynthorpe, 2356 - Rosemont, 3467 - Fairview, 4578 - Ashbrook,
-        5689 - Willowdale, 6790 - Brookfield, 7901 - Highcliff, 5678 - Oakwood, 0123
-        - Hillcrest, 1234 - Greenfield, 2345 - Woodhaven, 3456 - Maplewood, 4567
-        - Meadowbrook, 9012 - Maplehurst, 6789 - Bridgewater, 7890 - Sunnydale
+      value: 1245 - Wynthorpe
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[1]
+      value: 2356 - Rosemont
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[2]
+      value: 3467 - Fairview
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[3]
+      value: 4578 - Ashbrook
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[4]
+      value: 5689 - Willowdale
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[5]
+      value: 6790 - Brookfield
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[6]
+      value: 7901 - Highcliff
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[7]
+      value: 5678 - Oakwood
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[8]
+      value: 0123 - Hillcrest
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[9]
+      value: 1234 - Greenfield
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[10]
+      value: 2345 - Woodhaven
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[11]
+      value: 3456 - Maplewood
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[12]
+      value: 4567 - Meadowbrook
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[13]
+      value: 9012 - Maplehurst
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[14]
+      value: 6789 - Bridgewater
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
+      propertyPath: page.Array.data[15]
+      value: 7890 - Sunnydale
       objectReference: {fileID: 0}
     - target: {fileID: -7979565144697310511, guid: 660745d8bf801284cb3b9dca65af2583, type: 3}
       propertyPath: itemDescription.Array.data[0]
