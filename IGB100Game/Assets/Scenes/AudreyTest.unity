@@ -7228,7 +7228,7 @@ MonoBehaviour:
       onWrongEvidence: What are you on about?
       addStatementAsEvidence: 1
   cameraPlace: {fileID: 123600692}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5b374eea5a1265740821d361a605a097, type: 3}
   exclamationMark: {fileID: 362390954}
 --- !u!114 &368577870
 MonoBehaviour:
@@ -17879,7 +17879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b714bd6bf34b8644e9f4df69351496a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDescription: []
+  itemDescription:
+  - The Carlisle house butler. A thankless job.
   interrogationQuestions:
   - questionText: Did you kill Mr Carlisle?
     requiredEvidence: {fileID: 0}
@@ -17890,7 +17891,7 @@ MonoBehaviour:
       onWrongEvidence: Sir, I must reiterate that I had no hand in the matter.
       addStatementAsEvidence: 1
   cameraPlace: {fileID: 639181325}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 2a8db2526f1a37745a82e11ae874fc1b, type: 3}
   exclamationMark: {fileID: 163228720}
 --- !u!114 &884206583
 MonoBehaviour:
@@ -20436,8 +20437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDescription:
-  - Madame Felicity Carlisle. Husband of the deceased Mr Carlisle, she's a stay at
-    home wife, tending to the needs of the house and family.
+  - Johnny Carlisle. Son of the deceased Mr Carlisle.
   interrogationQuestions:
   - questionText: Did you kill your father?
     requiredEvidence: {fileID: 0}
@@ -20457,7 +20457,7 @@ MonoBehaviour:
       onWrongEvidence: I've already told you all I know.
       addStatementAsEvidence: 0
   cameraPlace: {fileID: 1133213880}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: fa60f7c27aab7b74c99d6b500bd1c733, type: 3}
   exclamationMark: {fileID: 1050792454}
 --- !u!114 &989389320
 MonoBehaviour:
@@ -24119,7 +24119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b714bd6bf34b8644e9f4df69351496a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDescription: []
+  itemDescription:
+  - Felicity Carlisle, daughter of the deceased Mr. Carlisle.
   interrogationQuestions:
   - questionText: Did you kill Mr Carlisle?
     requiredEvidence: {fileID: 0}
@@ -24130,7 +24131,7 @@ MonoBehaviour:
       onWrongEvidence: Stop trying to accuse me, I didn't do it!
       addStatementAsEvidence: 1
   cameraPlace: {fileID: 301151566}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 50a6ef625e5075c40bf9ea61309b5ad3, type: 3}
   exclamationMark: {fileID: 1499113055}
 --- !u!114 &1152704623
 MonoBehaviour:
