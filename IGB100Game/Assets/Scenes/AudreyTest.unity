@@ -31170,7 +31170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newRotation: {x: 0, y: 180, z: -110}
   rotationTime: 1
-  unlockSound: {fileID: 0}
+  doorSound: {fileID: 0}
   locks: 0
 --- !u!1001 &1527005414
 PrefabInstance:
