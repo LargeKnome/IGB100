@@ -806,5 +806,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newRotation: {x: 0, y: 90, z: 0}
   rotationTime: 1
-  unlockSound: {fileID: 0}
+  doorSound: {fileID: 8300000, guid: 0eb9e83068dcd8842a9b7bb0510ba5e5, type: 3}
   locks: 0

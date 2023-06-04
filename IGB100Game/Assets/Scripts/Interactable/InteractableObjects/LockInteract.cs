@@ -8,6 +8,8 @@ public class LockInteract : MonoBehaviour, Interactable
     [SerializeField] Key requiredEvidence;
     [SerializeField] UnityEvent onUnlocked;
 
+    [SerializeField] AudioClip unlockSound;
+
     private bool completed = false;
 
     List<Material> defaultMats;
@@ -46,12 +48,11 @@ public class LockInteract : MonoBehaviour, Interactable
             {
                 Reliability.i.AffectReliability(10);
                 completed = true;
+                AudioManager.i.PlaySFX(unlockSound);
                 onUnlocked.Invoke();
             }
             else if (InventoryState.i.SelectedEvidence != requiredEvidence)
-            {
                 Reliability.i.AffectReliability(-7);
-            }
         }
     }
 }

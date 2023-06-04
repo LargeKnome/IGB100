@@ -476,6 +476,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  unlockSound: {fileID: 8300000, guid: b28348d58332a9648a9c6fedeec8199b, type: 3}
 --- !u!1 &8166791697022946363
 GameObject:
   m_ObjectHideFlags: 0

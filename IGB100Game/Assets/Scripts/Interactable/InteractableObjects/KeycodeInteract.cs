@@ -8,6 +8,8 @@ public class KeycodeInteract : MonoBehaviour, Interactable
     [SerializeField] int code;
     [SerializeField] UnityEvent onCodeEntered;
 
+    [SerializeField] AudioClip unlockSound;
+
     bool completed = false;
 
     List<Material> defaultMats;
@@ -45,6 +47,7 @@ public class KeycodeInteract : MonoBehaviour, Interactable
             {
                 Reliability.i.AffectReliability(10);
                 completed = true;
+                AudioManager.i.PlaySFX(unlockSound);
                 onCodeEntered.Invoke();
             }
             else if(code != KeycodeState.i.CurrentCode)
