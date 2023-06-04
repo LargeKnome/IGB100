@@ -19,6 +19,8 @@ public class CutsceneEditor : Editor
                 cutscene.AddAction(new MoveCameraAction());
             else if (GUILayout.Button("Return Camera"))
                 cutscene.AddAction(new ReturnCameraAction());
+            else if (GUILayout.Button("Add Event"))
+                cutscene.AddAction(new EventAction());
         };
 
         base.OnInspectorGUI();

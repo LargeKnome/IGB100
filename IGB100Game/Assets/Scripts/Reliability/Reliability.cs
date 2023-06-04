@@ -16,7 +16,8 @@ public class Reliability : MonoBehaviour
     public static Reliability i;
 
     public event Action<int> OnReliabilityChanged;
-    public event Action OnReliabilityEmpty;
+
+    [SerializeField] Cutscene failedCutscene;
 
     private void Awake()
     {
@@ -43,6 +44,11 @@ public class Reliability : MonoBehaviour
         OnReliabilityChanged?.Invoke(currentReliability);
 
         if (currentReliability == 0)
-            OnReliabilityEmpty?.Invoke();
+        {
+            while (GameController.i.StateMachine.CurrentState != FreeRoamState.i)
+                GameController.i.StateMachine.Pop();
+
+            failedCutscene.StartCutscene();
+        }
     }
 }

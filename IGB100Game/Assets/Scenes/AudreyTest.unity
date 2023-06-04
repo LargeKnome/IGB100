@@ -12348,6 +12348,92 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c831c4b4f99733745903517caab7d07d, type: 3}
   m_PrefabInstance: {fileID: 685459658}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &646119821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 646119822}
+  - component: {fileID: 646119823}
+  m_Layer: 0
+  m_Name: FailCutscene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &646119822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646119821}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845461674}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646119823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646119821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b1a5835e12b6d429b3b69cc6358c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions:
+  - rid: 3756151714799419396
+  - rid: 3756151714799419397
+  - rid: 3756151714799419398
+  - rid: 3756151714799419399
+  references:
+    version: 2
+    RefIds:
+    - rid: 3756151714799419396
+      type: {class: DialogAction, ns: , asm: Assembly-CSharp}
+      data:
+        dialog:
+        - Enough!
+    - rid: 3756151714799419397
+      type: {class: MoveCameraAction, ns: , asm: Assembly-CSharp}
+      data:
+        cameraMoveTo: {fileID: 979812806}
+    - rid: 3756151714799419398
+      type: {class: DialogAction, ns: , asm: Assembly-CSharp}
+      data:
+        dialog:
+        - I have had it with your reckless disregard for proper investigation etiquette!
+        - To put it simply, YOU SUCK!
+        - You're off the case! Get out of my sight!
+    - rid: 3756151714799419399
+      type: {class: EventAction, ns: , asm: Assembly-CSharp}
+      data:
+        EventToInvoke:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1875934927}
+              m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+              m_MethodName: ChangeScene
+              m_Mode: 5
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: MainMenu
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &649428051
 GameObject:
   m_ObjectHideFlags: 0
@@ -16322,6 +16408,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 246512061}
+  - {fileID: 646119822}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19840,6 +19927,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 130332010468072337, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
+      propertyPath: failedCutscene
+      value: 
+      objectReference: {fileID: 646119823}
     - target: {fileID: 437603492495057109, guid: 23483f7190637ed41a827784d2fecb4f, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
