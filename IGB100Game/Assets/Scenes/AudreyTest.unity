@@ -4790,7 +4790,9 @@ MonoBehaviour:
       data:
         dialog:
         - It's about time you showed up, this murder isn't going to solve itself.
-        - We haven't collected any evidence yet, that's up to you.
+        - We haven't collected any evidence yet, that's up to you. Press F to sense
+          the evidence around you.
+        - You can view the evidence you have collected by pressing TAB.
         - Make sure to talk to the suspects, they might know something important.
         - They could lie to you, however. When that happens you can click on their
           statements to prove them wrong.
