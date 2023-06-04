@@ -893,6 +893,7 @@ GameObject:
   - component: {fileID: 135027915}
   - component: {fileID: 9212596748424107059}
   - component: {fileID: 614626470045235735}
+  - component: {fileID: 9204710172231327114}
   m_Layer: 0
   m_Name: GameStates
   m_TagString: Untagged
@@ -1018,6 +1019,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inspectionUI: {fileID: 3845384863520164887}
+--- !u!114 &9204710172231327114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93395374297114153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b762462e019137b4e872ad3be205fc3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &93395374302876284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1305,7 @@ MonoBehaviour:
   mainCamera: {fileID: 6462337459578287980}
   player: {fileID: 8565653772862531258}
   detectivisionMat: {fileID: 2100000, guid: 41c9a158df1bbad4fa6abc311b89e6f6, type: 2}
+  beginningCutscene: {fileID: 0}
 --- !u!114 &93395374801725062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3930,8 +3944,8 @@ RectTransform:
   m_Father: {fileID: 550873179}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.4, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4995,8 +5009,8 @@ RectTransform:
   m_Father: {fileID: 550873179}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMin: {x: 0.7, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5454,7 +5468,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -395.26196}
+  m_SizeDelta: {x: 0, y: -389.3144}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4933273689274281438
 MonoBehaviour:
@@ -6557,7 +6571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9041724405209531798, guid: fb7bb46b5c5bab7479045ef17b6836a4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17.135
+      value: -17.13502
       objectReference: {fileID: 0}
     - target: {fileID: 9041724405209531798, guid: fb7bb46b5c5bab7479045ef17b6836a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

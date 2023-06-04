@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] Material detectivisionMat;
 
+    [SerializeField] Cutscene beginningCutscene;
+
     public Camera MainCamera => mainCamera;
     public FirstPersonController Player => player;
 
@@ -28,6 +30,8 @@ public class GameController : MonoBehaviour
     {
         StateMachine = new(this);
         StateMachine.Push(FreeRoamState.i);
+
+        beginningCutscene.StartCutscene();
     }
 
     void Update()

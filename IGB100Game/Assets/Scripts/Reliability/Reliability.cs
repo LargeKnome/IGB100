@@ -16,6 +16,7 @@ public class Reliability : MonoBehaviour
     public static Reliability i;
 
     public event Action<int> OnReliabilityChanged;
+    public event Action OnReliabilityEmpty;
 
     private void Awake()
     {
@@ -37,14 +38,11 @@ public class Reliability : MonoBehaviour
 
         currentReliability += diff;
 
-        if (currentReliability > 100)
-            currentReliability = 100;
-
-        if(currentReliability <= 0)
-        {
-            //Game over
-        }
+        currentReliability = Mathf.Clamp(currentReliability, 0, 100);
 
         OnReliabilityChanged?.Invoke(currentReliability);
+
+        if (currentReliability == 0)
+            OnReliabilityEmpty?.Invoke();
     }
 }

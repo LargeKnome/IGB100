@@ -40,9 +40,16 @@ public class FirstPersonController : MonoBehaviour
 
 	public event Action<bool> OnVisionActivate;
 
-	private void Start()
+	public Vector3 PrevCamPos { get; set; }
+	public Quaternion PrevCamRot { get; set; }
+
+    private void Start()
 	{
 		mainCamera = GameController.i.MainCamera.gameObject;
+
+		PrevCamPos = mainCamera.transform.localPosition;
+		PrevCamRot = mainCamera.transform.localRotation;
+
 		inventory = GetComponent<Inventory>();
 		controller = GetComponent<CharacterController>();
 	}
